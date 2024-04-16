@@ -1,0 +1,14 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "reportDescriptionlessDisables": true,
+  "reportInvalidScopeDisables": true,
+  "reportNeedlessDisables": true,
+  "rules": {
+    "declaration-property-value-no-unknown": true,
+    "no-descending-specificity": true,
+    "block-no-empty": true,
+    "comment-no-empty": true,
+    "comment-empty-line-before": "always",
+    "custom-property-empty-line-before": "always"
+  }
+}
