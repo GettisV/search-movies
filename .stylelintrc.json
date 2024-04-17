@@ -8,7 +8,6 @@
     "no-descending-specificity": true,
     "block-no-empty": true,
     "comment-no-empty": true,
-    "comment-empty-line-before": "always",
-    "custom-property-empty-line-before": "always"
+    "comment-empty-line-before": "always"
   }
 }

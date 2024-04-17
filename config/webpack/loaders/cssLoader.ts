@@ -9,7 +9,7 @@ export function cssLoader(options: ConfigWebpackTypes) {
     return {
         test: /\.s[ac]ss$/i,
         use: [
-            options.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
                 loader: 'css-loader',
                 options: {
@@ -19,6 +19,7 @@ export function cssLoader(options: ConfigWebpackTypes) {
                             ? '[path][name]__[local]--[hash:base64:5]'
                             : '[hash:base64:8]',
                     },
+                    esModule: false,
                 },
             },
             'sass-loader',

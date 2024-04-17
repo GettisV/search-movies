@@ -8,10 +8,16 @@ export function loadersWebpack(options: ConfigWebpackTypes) {
         exclude: /node_modules/,
     };
 
-    const scssLoader = cssLoader(options);
+    const stylesLoader = cssLoader(options);
+
+    const imageLoader = {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        use: 'file-loader',
+    };
 
     return [
         tsLoader,
-        scssLoader,
+        imageLoader,
+        stylesLoader,
     ];
 }
