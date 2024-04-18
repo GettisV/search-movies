@@ -1,8 +1,8 @@
-import { Container } from 'widgets/Container/ui/Container';
+import { Container } from 'widgets/Container';
 import { Suspense } from 'react';
 import LoaderPage from 'shared/ui/LoaderPage/LoaderPage/LoaderPage';
-import { RouterProviderApp } from './Providers';
-import { StoreProvider } from './Providers/StoreProvider/ui/StoreProvider';
+import { RouterProviderApp } from './Providers/RouterProvider';
+import { StoreProvider } from './Providers/StoreProvider';
 
 export default function App() {
     return (

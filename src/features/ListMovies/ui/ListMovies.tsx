@@ -1,10 +1,10 @@
 import { Grid } from 'shared/ui/Grid/Grid';
 import { rtkApi } from 'shared/api/rtkApi';
 import Loader from 'shared/ui/Loader/Loader/Loader';
-import { CardMovie } from '../../entities/Movies/ui/CardMovie/CardMovie';
-import cls from './ListMovies.module.scss';
-import { getFilmArg, getFilmType } from './types/ListMoviesTypes';
 import { memo } from 'react';
+import { CardMovie } from '../../../entities/Movies/ui/CardMovie/CardMovie';
+import cls from './ListMovies.module.scss';
+import { getFilmArg, getFilmType } from '../types/ListMoviesTypes';
 
 export const ListMovies = memo(() => {
     const filmApi = rtkApi.injectEndpoints({
@@ -40,4 +40,4 @@ export const ListMovies = memo(() => {
             }
         </Grid>
     );
-})
+});

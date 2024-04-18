@@ -1,1 +1,1 @@
-export { ListMovies } from './ListMovies/ListMovies';
+export { ListMovies } from './ListMovies/ui/ListMovies';
