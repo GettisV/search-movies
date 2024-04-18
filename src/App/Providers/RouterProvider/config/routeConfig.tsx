@@ -1,4 +1,4 @@
-import { Film } from 'page/Film/ui/Film';
+import { Film } from 'page/Film';
 import { RouteObject } from 'react-router-dom';
 import MainOutlet from 'shared/ui/MainOutlet/MainOutlet';
 

@@ -3,9 +3,9 @@ import { Navbar } from 'widgets/Navbar';
 
 export default function MainOutlet() {
     return (
-        <div>
+        <>
             <Navbar />
             <Outlet />
-        </div>
+        </>
     );
 }

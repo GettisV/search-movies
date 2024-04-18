@@ -1,5 +1,5 @@
 .card{
-    max-width: 200px;
+    max-width: var(--card-max-width);
     cursor: pointer;
 }
 

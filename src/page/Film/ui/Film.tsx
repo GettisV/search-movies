@@ -1,7 +1,8 @@
-import { ListMovies } from 'entities/Movies/ui/ListMovies/ListMovies';
+import { ListMovies } from 'features/ListMovies/ListMovies';
+import { memo } from 'react';
 
-export function Film() {
-    return (
-        <ListMovies />
-    );
-}
+const Film = memo(() => (
+    <ListMovies />
+));
+
+export default Film;

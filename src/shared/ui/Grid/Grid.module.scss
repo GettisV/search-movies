@@ -1,6 +1,7 @@
 .grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(var(--card-max-width), 1fr));
     grid-template-rows: auto;
     justify-items: center;
     gap: 5px;

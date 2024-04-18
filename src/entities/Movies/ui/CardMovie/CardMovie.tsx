@@ -1,23 +1,30 @@
-import img from 'shared/assets/testMoviesimg/friend.png';
+import { docsType } from 'features/ListMovies/types/ListMoviesTypes';
+import { memo } from 'react';
+import { ClassNames } from 'shared/lib/ClassNames';
 import cls from './CardMovie.module.scss';
 
-export function CardMovie() {
+interface CardMovieType{
+    className?: string;
+    filmInfo: docsType;
+}
+
+export const CardMovie = memo((props: CardMovieType) => {
+    const {
+        filmInfo,
+        className,
+    } = props;
+
     return (
-        <section className={cls.card}>
-            <img className={cls.img} src={img} alt="friend" />
-            <h2>Дружеское увещевание</h2>
+        <section className={ClassNames(cls.card, {}, [className])}>
+            <img
+                className={cls.img}
+                src={filmInfo.poster.previewUrl || ''}
+                alt={filmInfo.poster.previewUrl || ''}
+            />
+            <h2>{filmInfo.name || 'Нет имени'}</h2>
             <p className={cls.text}>
-                Южная Индиана, 1862 год. Трогательная история о семействе квакеров,
-                живущем на ферме: глава — Джесс, его жена Элайза и
-                трое детей — старший сын Джошуа, средняя дочь Мэтти и малыш Джесс.
-                Эта замечательная семья всю неделю трудится на своей ферме,
-                а по воскресеньям они в полном составе посещают собрание,
-                где предаются молитвам такие же образцовые квакеры.
-                Несмотря на то, что уже два года вовсю бушует война между Севером и Югом,
-                благочестивые фермеры пытаются «закрывать на это глаза».
-                Их учение не позволяет использовать физическую силу даже тогда,
-                когда опасность угрожает их собственному дому…
+                { filmInfo.shortDescription || 'Нет краткого описания'}
             </p>
         </section>
     );
-}
+});
