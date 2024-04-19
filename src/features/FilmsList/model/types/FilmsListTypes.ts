@@ -12,7 +12,7 @@ interface ratingType{
     imdb: number,
 }
 
-export interface docsType{
+export interface getFilmType{
     rating: ratingType,
     movieLength: number,
     id: number,
@@ -28,11 +28,8 @@ export interface docsType{
     ageRating: number,
 }
 
-export interface getFilmType{
-    docs: docsType[]
-}
-
 export interface getFilmArg{
     page: number,
     limit: number,
+    typeFilm: string,
 }

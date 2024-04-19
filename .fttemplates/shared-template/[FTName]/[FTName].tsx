@@ -1,9 +1,19 @@
-import cls from './<FTName|pascalcase>.module.scss'
+import { memo } from 'react';
+import { ClassNames } from 'shared/lib/ClassNames';
+import cls from './<FTName|pascalcase>.module.scss';
 
-interface <FTName|pascalcase>Props{
-
+interface <FTName|pascalcase>Type{
+    className?: string;
 }
 
-export default function <FTName|pascalcase>(props: <FTName|pascalcase>Props) {
-    return <div>123</div>
-}
+export const <FTName|pascalcase> = memo((props: <FTName|pascalcase>Type) => {
+    const {
+        className,
+    } = props;
+
+    return (
+        <div className={ClassNames('', {}, [className])}>
+            1
+        </div>
+    );
+});

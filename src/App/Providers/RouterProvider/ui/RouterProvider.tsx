@@ -2,10 +2,10 @@ import {
     RouterProvider,
     createBrowserRouter,
 } from 'react-router-dom';
-import { RouteConfig } from '../config/routeConfig';
+import { RoutesConfig } from '../config/routeConfig';
 
 export function RouterProviderApp() {
-    const router = createBrowserRouter(RouteConfig);
+    const router = createBrowserRouter(RoutesConfig);
 
     return <RouterProvider router={router} />;
 }

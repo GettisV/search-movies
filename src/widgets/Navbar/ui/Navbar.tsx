@@ -1,26 +1,20 @@
-import { NavLink } from 'react-router-dom';
 import { memo } from 'react';
+import { AppLink } from 'shared/ui/AppLink/AppLink';
+import { childrenRoutes } from 'App/Providers/RouterProvider';
 import cls from './Navbar.module.scss';
 
 export const Navbar = memo(() => (
     <nav className={cls.navbar}>
-        <NavLink
-            to="/film"
-            className={({ isActive }) => (isActive ? cls.activeNavlink : cls.navlink)}
-        >
-            Фильмы
-        </NavLink>
-        <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? cls.activeNavlink : cls.navlink)}
-        >
-            Сериалы
-        </NavLink>
-        <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? cls.activeNavlink : cls.navlink)}
-        >
-            Мультфильмы
-        </NavLink>
+        {
+            childrenRoutes.map(
+                (route) => (
+                    <AppLink
+                        to={route.path}
+                        key={route.path}
+                        text={route.text}
+                    />
+                ),
+            )
+        }
     </nav>
 ));

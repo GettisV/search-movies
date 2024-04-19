@@ -1,14 +1,14 @@
-import { docsType } from 'features/ListMovies/types/ListMoviesTypes';
 import { memo } from 'react';
 import { ClassNames } from 'shared/lib/ClassNames';
-import cls from './CardMovie.module.scss';
+import { getFilmType } from 'features/FilmsList';
+import cls from './FilmCard.module.scss';
 
-interface CardMovieType{
+interface FilmCardType{
     className?: string;
-    filmInfo: docsType;
+    filmInfo: getFilmType;
 }
 
-export const CardMovie = memo((props: CardMovieType) => {
+export const FilmCard = memo((props: FilmCardType) => {
     const {
         filmInfo,
         className,
