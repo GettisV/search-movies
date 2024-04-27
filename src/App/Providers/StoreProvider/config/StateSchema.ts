@@ -1,5 +1,7 @@
+import { filmFiltersSchema } from 'features/FilmsList';
 import { rtkApi } from 'shared/api/rtkApi';
 
-export type StateShema = {
+export interface StateShema {
+    filmsList: filmFiltersSchema,
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
 }

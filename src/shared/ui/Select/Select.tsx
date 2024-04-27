@@ -1,34 +1,41 @@
-import { ChangeEvent, memo } from 'react';
-import { ClassNames } from 'shared/lib/ClassNames';
+import { ChangeEvent } from 'react';
+import { classNames } from 'shared/lib/classNames';
 import cls from './Select.module.scss';
 
-interface SelectType{
-    className?: string;
-    onChange: () => void;
-    options: string[]
+export interface selectOptionsType<T extends string> {
+    value: T,
+    content: string,
 }
 
-export const Select = memo((props: SelectType) => {
+interface SelectType<T extends string>{
+    className?: string;
+    onChange: (value: T) => void;
+    options: selectOptionsType<T>[];
+    value?: T;
+}
+
+export const Select = <T extends string>(props: SelectType<T>) => {
     const {
         className,
         onChange,
         options,
+        value,
     } = props;
 
-    const onChangeHanlder = (event: ChangeEvent<HTMLSelectElement>) => {
-        onChange?.();
+    const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+        onChange?.(e.currentTarget.value as T);
     };
 
     return (
         <div
-            className={ClassNames(cls.selectDiv, {}, [className])}
+            className={classNames(cls.selectDiv, {}, [className])}
         >
             <select
-                onChange={onChangeHanlder}
+                value={value}
+                onChange={onChangeHandler}
             >
-                <option selected value="1">1</option>
+                {options.map((opt) => <option value={opt.value} key={opt.value}>{opt.content}</option>)}
             </select>
-
         </div>
     );
-});
+};

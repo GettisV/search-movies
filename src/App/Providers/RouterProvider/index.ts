@@ -1,2 +1,2 @@
 export { RouterProviderApp } from './ui/RouterProvider';
-export { RoutePath, childrenRouteConfig } from './config/routeConfig';
+export { RoutePath, AppRoutes, childrenRouteConfig } from './config/routeConfig';

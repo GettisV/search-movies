@@ -1,4 +1,4 @@
-import { ClassNames } from 'shared/lib/ClassNames';
+import { classNames } from 'shared/lib/classNames';
 import Loader from 'shared/ui/Loader/Loader';
 import cls from './LoaderPage.module.scss';
 
@@ -9,7 +9,7 @@ interface LoaderPageProps{
 export default function LoaderPage({ className }: LoaderPageProps) {
     return (
         <section
-            className={ClassNames(cls.loaderPage, {}, [className])}
+            className={classNames(cls.loaderPage, {}, [className])}
         >
             <Loader />
         </section>

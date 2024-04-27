@@ -2,7 +2,7 @@ type AdditionalType = (string | undefined)[];
 
 type ModsType = Record<string, boolean> | undefined
 
-export function ClassNames(
+export function classNames(
     cls?: string,
     mods?: ModsType,
     additional?: AdditionalType,

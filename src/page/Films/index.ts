@@ -1,1 +1,1 @@
-export { FilmsAsync as Films } from './ui/Films.async';
+export { FilmsAsync as Films } from './ui/Films/Films.async';

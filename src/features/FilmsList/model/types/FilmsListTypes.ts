@@ -1,6 +1,15 @@
+import {
+    filmType,
+    filmSortSelectOptions,
+    filmFilterSelectOptions,
+} from './filmFiltersTypes';
+
 interface defaultType { name: string }
-interface genresType extends defaultType{}
 interface countriesType extends defaultType{}
+
+interface genresType<T>{
+    name: T,
+}
 
 interface posterType{
     url: string,
@@ -12,7 +21,7 @@ interface ratingType{
     imdb: number,
 }
 
-export interface getFilmType{
+export interface filmTypeResponseServer{
     rating: ratingType,
     movieLength: number,
     id: number,
@@ -22,14 +31,20 @@ export interface getFilmType{
     shortDescription: string,
     year: number,
     poster: posterType,
-    genres: genresType[],
+    genres: genresType<string>[],
     countries: countriesType[],
     alternativeName: string,
     ageRating: number,
 }
 
-export interface getFilmArg{
+export interface filmResponseServer{
+    docs: filmTypeResponseServer[]
+}
+
+export interface filmArg{
     page: number,
     limit: number,
-    typeFilm: string,
+    filmType: filmType,
+    filmSort: filmSortSelectOptions,
+    filmFilterGenre: filmFilterSelectOptions
 }

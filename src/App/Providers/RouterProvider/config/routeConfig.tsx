@@ -1,15 +1,7 @@
+import { filmType } from 'features/FilmsList';
 import { Films } from 'page/Films';
-import { RouteObject, RouteProps } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import { MainOutlet } from 'shared/ui/MainOutlet/MainOutlet';
-
-export type AppRoutesProps = RouteProps;
-
-// export enum RoutePath {
-//     HOME = '/',
-//     FILMS = 'films',
-//     SERIES = 'series',
-//     CARTOONS = 'cartoons',
-// }
 
 export enum AppRoutes{
     HOME = 'home',
@@ -29,17 +21,17 @@ export const childrenRouteConfig = [
     {
         path: RoutePath.films,
         text: 'Фильмы',
-        element: <Films />,
+        element: <Films filmType={filmType.FILMS} />,
     },
     {
         path: RoutePath.series,
         text: 'Сериалы',
-        element: <Films />,
+        element: <Films filmType={filmType.SERIALS} />,
     },
     {
         path: RoutePath.cartoons,
         text: 'Мультфильмы',
-        element: <Films />,
+        element: <Films filmType={filmType.CARTOONS} />,
     },
 ];
 

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ClassNames } from 'shared/lib/ClassNames';
+import { classNames } from 'shared/lib/classNames';
 import cls from './Grid.module.scss';
 
 interface GridProps{
@@ -14,7 +14,7 @@ export function Grid(props: GridProps) {
     } = props;
 
     return (
-        <div className={ClassNames(cls.grid, {}, [className])}>
+        <div className={classNames(cls.grid, {}, [className])}>
             {children}
         </div>
     );
