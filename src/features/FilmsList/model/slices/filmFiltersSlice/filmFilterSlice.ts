@@ -1,15 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
-    filmFilterSelectOptions,
+    filmCountriesFilterSelectOptions,
     filmFiltersSchema,
+    filmGenreFilterSelectOptions,
+    filmReleaseFilterSelectOptions,
     filmSortSelectOptions,
 } from '../../types/filmFiltersTypes';
 
 const initialState: filmFiltersSchema = {
     filmSelectSort: filmSortSelectOptions.dateBy,
-    filmSelectGenreFilter: filmFilterSelectOptions.all,
-    filmSelectСountriesFilter: '',
-    filmSelectReleasedFilter: '',
+    filmSelectGenreFilter: filmGenreFilterSelectOptions.all,
+    filmSelectСountriesFilter: filmCountriesFilterSelectOptions.all,
+    filmSelectReleasedFilter: filmReleaseFilterSelectOptions.all,
 };
 
 export const filmsListSlice = createSlice({
@@ -19,15 +21,15 @@ export const filmsListSlice = createSlice({
         sortSelect(state, action: PayloadAction<filmSortSelectOptions>) {
             state.filmSelectSort = action.payload;
         },
-        genreFilter(state, action: PayloadAction<filmFilterSelectOptions>) {
+        genreFilter(state, action: PayloadAction<filmGenreFilterSelectOptions>) {
             state.filmSelectGenreFilter = action.payload;
         },
-        // countriesFilter(state, action: PayloadAction<>) {
-        //     state.filmSelectСountriesFilter = action.payload;
-        // },
-        // releasedFilter(state, action: PayloadAction<>) {
-        //     state.filmSelectReleasedFilter = action.payload;
-        // },
+        countriesFilter(state, action: PayloadAction<filmCountriesFilterSelectOptions>) {
+            state.filmSelectСountriesFilter = action.payload;
+        },
+        releasedFilter(state, action: PayloadAction<string>) {
+            state.filmSelectReleasedFilter = action.payload;
+        },
     },
 });
 

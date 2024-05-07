@@ -4,7 +4,7 @@
   "reportInvalidScopeDisables": true,
   "reportNeedlessDisables": true,
   "rules": {
-    "declaration-property-value-no-unknown": true,
+    "declaration-property-value-no-unknown": null,
     "no-descending-specificity": true,
     "block-no-empty": true,
     "comment-no-empty": true,

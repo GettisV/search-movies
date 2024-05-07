@@ -1,5 +1,6 @@
 import { filmArg, filmResponseServer } from 'features/FilmsList';
 import { rtkApi } from 'shared/api/rtkApi';
+import { lineSplitting } from 'shared/lib/lineSplitting';
 import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
 
 export const filmApi = rtkApi.injectEndpoints({
@@ -11,6 +12,8 @@ export const filmApi = rtkApi.injectEndpoints({
                 filmType,
                 filmSort,
                 filmFilterGenre,
+                filmFilterCountry,
+                filmFilterRelease,
             }) => {
                 const argsRequest = {
                     url: 'movie',
@@ -22,8 +25,10 @@ export const filmApi = rtkApi.injectEndpoints({
                         type: filmType,
                         notNullFields: 'poster.url',
                         'genres.name': filmFilterGenre,
-                        'rating.kp': '6.5-10',
-                        'votes.kp': '50000-6666666',
+                        'countries.name': filmFilterCountry,
+                        'rating.kp': '5.5-10',
+                        'votes.kp': '10000-6666666',
+                        year: filmFilterRelease,
                     }),
                 };
 

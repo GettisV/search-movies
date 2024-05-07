@@ -11,6 +11,9 @@
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "stylelint.config": null,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.stylelint": "explicit"
+    },
     "[scss]": {
         "editor.defaultFormatter": "stylelint.vscode-stylelint"
     },

@@ -1,7 +1,8 @@
 import {
     filmType,
     filmSortSelectOptions,
-    filmFilterSelectOptions,
+    filmGenreFilterSelectOptions,
+    filmCountriesFilterSelectOptions,
 } from './filmFiltersTypes';
 
 interface defaultType { name: string }
@@ -46,5 +47,7 @@ export interface filmArg{
     limit: number,
     filmType: filmType,
     filmSort: filmSortSelectOptions,
-    filmFilterGenre: filmFilterSelectOptions
+    filmFilterGenre: filmGenreFilterSelectOptions,
+    filmFilterCountry: filmCountriesFilterSelectOptions,
+    filmFilterRelease: string,
 }

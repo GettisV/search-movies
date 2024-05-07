@@ -4,7 +4,7 @@ import cls from './Select.module.scss';
 
 export interface selectOptionsType<T extends string> {
     value: T,
-    content: string,
+    content?: string,
 }
 
 interface SelectType<T extends string>{
@@ -34,7 +34,19 @@ export const Select = <T extends string>(props: SelectType<T>) => {
                 value={value}
                 onChange={onChangeHandler}
             >
-                {options.map((opt) => <option value={opt.value} key={opt.value}>{opt.content}</option>)}
+                {
+                    options
+                        .map(
+                            (opt) => (
+                                <option
+                                    value={opt.value}
+                                    key={opt.value}
+                                >
+                                    {opt.content || opt.value}
+                                </option>
+                            ),
+                        )
+                }
             </select>
         </div>
     );

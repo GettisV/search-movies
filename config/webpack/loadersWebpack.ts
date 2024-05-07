@@ -11,13 +11,19 @@ export function loadersWebpack(options: ConfigWebpackTypes) {
     const stylesLoader = cssLoader(options);
 
     const imageLoader = {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpg|jpeg|gif)$/i,
         use: 'file-loader',
+    };
+
+    const svgLoader = {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
     };
 
     return [
         tsLoader,
         imageLoader,
+        svgLoader,
         stylesLoader,
     ];
 }

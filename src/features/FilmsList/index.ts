@@ -15,9 +15,7 @@ export {
 } from './model/slices/filmFiltersSlice/filmFilterSlice';
 
 export {
-    filmFilterSelectOptions,
-    filmFiltersSchema,
-    filmSortSelectOptions,
+    filmCountriesFilterSelectOptions, filmFiltersSchema, filmGenreFilterSelectOptions, filmSortSelectOptions,
     filmType,
 } from './model/types/filmFiltersTypes';
 
