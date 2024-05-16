@@ -1,11 +1,13 @@
 import { ReducersMapObject, configureStore } from '@reduxjs/toolkit';
 import { rtkApi } from 'shared/api/rtkApi';
-import { filmsListReducer } from 'features/FilmsList';
+import { filmsFiltersReducer } from 'features/GetFilms';
+import { filmReducer } from 'entities/Films';
 import { StateShema } from './StateSchema';
 
 const rootReducer: ReducersMapObject<StateShema> = {
     [rtkApi.reducerPath]: rtkApi.reducer,
-    filmsList: filmsListReducer,
+    films: filmReducer,
+    filmsFilters: filmsFiltersReducer,
 };
 
 export const store = configureStore({

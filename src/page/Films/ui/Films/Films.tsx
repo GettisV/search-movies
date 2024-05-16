@@ -1,6 +1,6 @@
-import { FilmsList } from 'features/FilmsList';
+import { filmType } from 'entities/Films';
 import { memo } from 'react';
-import { filmType } from '../../../../features/FilmsList/model/types/filmFiltersTypes';
+import { FilmsList } from 'widgets/FilmsList';
 
 interface FilmsProps{
     filmType: filmType;
@@ -12,7 +12,9 @@ const Films = memo((props: FilmsProps) => {
     } = props;
 
     return (
-        <FilmsList filmType={filmType} />
+        <FilmsList
+            filmType={filmType}
+        />
     );
 });
 

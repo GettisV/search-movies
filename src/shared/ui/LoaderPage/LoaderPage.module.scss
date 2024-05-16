@@ -1,8 +1,7 @@
 .loader-page{
-    background-color: #202020;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100vh;
+    flex-grow: 1;
+    height: calc(100vh - var(--navbar-height));
 }

@@ -1,4 +1,4 @@
-$size: 100px;
+$size: 80px;
 
 .loader {
     bottom: calc($size / 2);
@@ -15,7 +15,7 @@ $size: 100px;
   width: $size;
   height: $size;
   border-radius: 50%;
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
   position: absolute;
   left: 0;
   top: 0;

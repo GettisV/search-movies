@@ -1,0 +1,23 @@
+.search-wrapper{
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input,.input::placeholder{
+    font-size: 1.5rem;
+    color: rgba($color: #fff, $alpha: 70%);
+    font-weight: 400;
+}
+
+.input::placeholder{
+    color: rgba($color: #fff, $alpha: 35%);
+}
+
+.search-icon{
+    width: 2rem;
+    height: 2rem;
+    margin-right: 15px;
+    fill: rgba($color: #fff, $alpha: 70%);
+}

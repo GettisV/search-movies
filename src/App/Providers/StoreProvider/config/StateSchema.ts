@@ -1,7 +1,9 @@
-import { filmFiltersSchema } from 'features/FilmsList';
+import { filmSchema } from 'entities/Films';
+import { filmFiltersSchema } from 'features/GetFilms';
 import { rtkApi } from 'shared/api/rtkApi';
 
 export interface StateShema {
-    filmsList: filmFiltersSchema,
-    [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
+    filmsFilters: filmFiltersSchema;
+    films: filmSchema;
+    [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 }

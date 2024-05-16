@@ -51,6 +51,7 @@ module.exports = {
         'react-hooks/exhaustive-deps': 'error',
         'no-param-reassign': 'off',
         'no-undef': 'off',
+        'no-extra-boolean-cast': 'off',
     },
     // globals: {
     //     __IS_DEV__: true,
