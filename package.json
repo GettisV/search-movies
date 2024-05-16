@@ -1,5 +1,5 @@
 {
-  "name": "filmfind",
+  "name": "searchMovies",
   "version": "1.0.0",
   "description": "find a film",
   "main": "index.js",
