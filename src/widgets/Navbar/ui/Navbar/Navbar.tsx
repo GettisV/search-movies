@@ -12,6 +12,7 @@ import { memo, useCallback, useState } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { AppLink } from 'shared/ui/AppLink/AppLink';
+import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 import cls from './Navbar.module.scss';
 
@@ -21,8 +22,10 @@ export const Navbar = memo(() => {
     const dispatch = useAppDispatch();
 
     const closeModalHandler = useCallback(() => {
+        dispatch(filmSearchApi.util.resetApiState());
+        dispatch(filmsFiltersActions.searchFilm(''));
         setStateModal(false);
-    }, []);
+    }, [dispatch]);
 
     const showModalHandler = useCallback(() => {
         setStateModal(true);
