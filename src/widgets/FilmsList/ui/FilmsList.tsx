@@ -10,12 +10,12 @@ import {
 import { memo } from 'react';
 import { useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { classNames } from 'shared/lib/classNames';
-import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
+import Loader from 'shared/ui/Loader/Loader';
 import cls from './FilmsList.module.scss';
 
 interface FilmsListType{
     filmType: filmType,
-    className?: string;
+    className?: string,
 }
 
 export const FilmsList = memo((props: FilmsListType) => {
@@ -28,15 +28,20 @@ export const FilmsList = memo((props: FilmsListType) => {
     const isFetching = useAppSelector(getIsFetching);
 
     return (
-        <div className={classNames(cls.filmsList, {}, [className])}>
+        <section
+            className={classNames('', {}, [className])}
+        >
             <FilmsFilters
                 filmType={filmType}
             />
+            <FilmsGrid films={data} />
             {
-                isFetching
-                    ? <LoaderPage />
-                    : <FilmsGrid films={data} />
+                isFetching && (
+                    <div className={cls.loaderBlock}>
+                        <Loader />
+                    </div>
+                )
             }
-        </div>
+        </section>
     );
 });

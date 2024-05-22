@@ -1,8 +1,9 @@
-import { FilmCard } from 'entities/Films';
-import { memo } from 'react';
-import { Grid } from 'shared/ui/Grid/Grid';
 import { filmResponseServerType } from 'features/GetFilms';
-import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
+import { memo } from 'react';
+import { useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
+import { Grid } from 'shared/ui/Grid/Grid';
+import { FilmCard } from '../../ui/FilmCard/FilmCard';
+import { getIsSuccess, getIsFetching } from '../../model/selectors/filmSelectors';
 import cls from './FilmsGrid.module.scss';
 
 interface FilmsListProps{
@@ -14,34 +15,23 @@ export const FilmsGrid = memo((props: FilmsListProps) => {
         films,
     } = props;
 
-    function getGridFilms() {
-        if (films?.docs?.length === undefined) {
-            return <LoaderPage />;
-        }
+    const isFetching = useAppSelector(getIsFetching);
+    const isSuccess = useAppSelector(getIsSuccess);
 
-        if (films?.docs?.length === 0) {
-            return <div className={cls.filmsNotFound}>Ничего не найдено =(</div>;
-        }
-
-        return (
-            <Grid className={cls.filmsGrid}>
-                {
-                    films?.docs?.map((film) => (
-                        <FilmCard
-                            key={film.id}
-                            filmInfo={film}
-                        />
-                    ))
-                }
-            </Grid>
-        );
+    if (!Boolean(films?.docs?.length) && !isFetching && isSuccess) {
+        return <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>;
     }
 
     return (
-        <div>
+        <Grid className={cls.filmsGrid}>
             {
-                getGridFilms()
+                films?.docs?.map((film) => (
+                    <FilmCard
+                        key={film.id}
+                        filmInfo={film}
+                    />
+                ))
             }
-        </div>
+        </Grid>
     );
 });

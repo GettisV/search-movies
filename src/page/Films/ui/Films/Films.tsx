@@ -1,5 +1,12 @@
-import { filmType } from 'entities/Films';
-import { memo } from 'react';
+import {
+    filmActions,
+    filmType,
+    getFilmsResponse,
+    getIsFetching, getPage,
+} from 'entities/Films';
+import { memo, useCallback } from 'react';
+import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
+import { Page } from 'shared/ui/Page/Page';
 import { FilmsList } from 'widgets/FilmsList';
 
 interface FilmsProps{
@@ -11,10 +18,34 @@ const Films = memo((props: FilmsProps) => {
         filmType,
     } = props;
 
+    const dispatch = useAppDispatch();
+
+    const data = useAppSelector(getFilmsResponse);
+    const dataIsExist = Boolean(data?.docs.length);
+
+    const page = useAppSelector(getPage);
+    const isFetching = useAppSelector(getIsFetching);
+
+    const paramsPage = {
+        infiniteScrollIsWork: dataIsExist,
+    };
+
+    const onScrollEnd = useCallback(() => {
+        if (dataIsExist && !isFetching) {
+            dispatch(filmActions.setPage(page + 1));
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, isFetching, data]);
+
     return (
-        <FilmsList
-            filmType={filmType}
-        />
+        <Page
+            paramsPage={paramsPage}
+            onScrollEnd={onScrollEnd}
+        >
+            <FilmsList
+                filmType={filmType}
+            />
+        </Page>
     );
 });
 

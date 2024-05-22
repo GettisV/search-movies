@@ -6,4 +6,6 @@ export interface filmSchema {
     filmsResponseSearch?: filmResponseServerType,
     isLoading: boolean,
     isFetching: boolean,
+    isSuccess: boolean,
+    searchInputDebounce: boolean,
 }

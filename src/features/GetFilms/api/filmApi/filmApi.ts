@@ -34,6 +34,17 @@ export const filmApi = rtkApi.injectEndpoints({
 
                 return argsRequest;
             },
+            serializeQueryArgs: ({ endpointName }) => endpointName,
+            merge: (currentCache, newItems, { arg }) => {
+                if (currentCache.docs[0]?.type === arg.filmType) {
+                    currentCache.docs.push(...newItems.docs);
+                } else {
+                    currentCache.docs = [...newItems.docs];
+                }
+            },
+            forceRefetch({ currentArg, previousArg }) {
+                return currentArg !== previousArg;
+            },
         }),
     }),
 

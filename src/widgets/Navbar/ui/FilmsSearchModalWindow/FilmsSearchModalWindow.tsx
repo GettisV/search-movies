@@ -4,13 +4,14 @@ import { FilmsSearchInput, getFilmSearchValue } from 'features/GetFilms';
 import {
     KeyboardEvent, memo,
     useCallback,
+    useEffect,
 } from 'react';
 import { useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { cancelEventBubbling } from 'shared/lib/cancelEventBubbling';
 import { classNames } from 'shared/lib/classNames';
+import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
 import { Portal } from 'shared/ui/Portal/Portal';
 import { Container } from 'widgets/Container';
-import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
 import cls from './FilmsSearchModalWindow.module.scss';
 
 interface FilmsSearchModalWindowType{
@@ -38,6 +39,14 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
     const searchInput = useAppSelector(getFilmSearchValue);
     const isFetching = useAppSelector(getIsFetching);
 
+    useEffect(() => {
+        if (stateModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [stateModal]);
+
     const closeModalHandler = useCallback(() => {
         closeModal?.();
     }, [closeModal]);
@@ -60,10 +69,17 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                     aria-hidden="true"
                 >
                     <FilmsSearchInput
+                        className={cls.inputSearch}
                         onChangeInput={onChangeInput}
                     />
+                    <button
+                        className={cls.modalClose}
+                        onClick={closeModalHandler}
+                        type="button"
+                    >
+                        X
+                    </button>
                 </div>
-
                 {
                     isFetching ? <LoaderPage />
                         : searchInput && (
@@ -72,7 +88,6 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                             </Container>
                         )
                 }
-
             </div>
         </Portal>
     );

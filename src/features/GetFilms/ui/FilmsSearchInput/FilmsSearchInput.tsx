@@ -1,12 +1,13 @@
 import { filmActions } from 'entities/Films';
 import { useLazyGetSearchFilmQuery } from 'features/GetFilms';
+import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
 import { memo, useEffect } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
-import { useDebounce } from 'shared/hooks/useDebounce';
+import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { cancelEventBubbling } from 'shared/lib/cancelEventBubbling';
+import { classNames } from 'shared/lib/classNames';
 import { Input } from 'shared/ui/Input/Input';
-import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
 import { getFilmSearchValue } from '../../model/selectors/filmFIltersSelectors/filmFiltersSelectors';
 import cls from './FIlmsSearchInput.module.scss';
 
@@ -21,8 +22,13 @@ export const FilmsSearchInput = memo((props: FIlmsSearchInputType) => {
         onChangeInput,
     } = props;
 
-    const [trigger, { data, isLoading, isFetching }] = useLazyGetSearchFilmQuery();
-    const querySearchFilms = useDebounce(trigger, 2000);
+    const [trigger, {
+        data,
+        isLoading,
+        isFetching,
+        isSuccess,
+    }] = useLazyGetSearchFilmQuery();
+    const querySearchFilms = useDebounce(trigger, 1000);
     const searchInput = useAppSelector(getFilmSearchValue);
     const dispatch = useAppDispatch();
 
@@ -38,10 +44,12 @@ export const FilmsSearchInput = memo((props: FIlmsSearchInputType) => {
 
         dispatch(filmActions.setIsLoading(isLoading));
         dispatch(filmActions.setIsFetching(isFetching));
-    }, [data, dispatch, isFetching, isLoading, searchInput]);
+        dispatch(filmActions.setIsSuccess(isSuccess));
+    }, [data, dispatch, isFetching, isLoading, isSuccess, searchInput]);
 
     const onChangeInputHandler = (value: string) => {
         onChangeInput?.(value);
+        dispatch(filmActions.setIsSuccess(false));
 
         if (value) {
             querySearchFilms({ searchText: value });
@@ -51,7 +59,7 @@ export const FilmsSearchInput = memo((props: FIlmsSearchInputType) => {
     return (
         <div
             onClick={cancelEventBubbling}
-            className={cls.searchWrapper}
+            className={classNames(cls.searchWrapper, {}, [className])}
             aria-hidden="true"
         >
             <SearchIcon onClick={cancelEventBubbling} className={cls.searchIcon} />

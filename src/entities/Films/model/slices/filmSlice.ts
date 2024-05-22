@@ -8,6 +8,8 @@ const initialState: filmSchema = {
     filmsResponseSearch: undefined,
     isLoading: true,
     isFetching: true,
+    isSuccess: false,
+    searchInputDebounce: false,
 };
 
 export const filmSlice = createSlice({
@@ -28,6 +30,12 @@ export const filmSlice = createSlice({
         },
         setIsFetching(state, action: PayloadAction<boolean>) {
             state.isFetching = action.payload;
+        },
+        setIsSuccess(state, action: PayloadAction<boolean>) {
+            state.isSuccess = action.payload;
+        },
+        setSearchInputDebounce(state, action: PayloadAction<boolean>) {
+            state.searchInputDebounce = action.payload;
         },
     },
 });
