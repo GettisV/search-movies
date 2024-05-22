@@ -1,11 +1,13 @@
-import { memo } from 'react';
+import { ReactNode, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import cls from './AppLink.module.scss';
 
 interface AppLinkType{
     className?: string;
     to: string,
-    text:string,
+    children: ReactNode,
+    hasActive?: boolean;
+    onClick: () => void;
 }
 
 interface isActiveNavlinkArg {
@@ -16,19 +18,24 @@ export const AppLink = memo((props: AppLinkType) => {
     const {
         className,
         to,
-        text,
+        children,
+        hasActive,
+        onClick,
     } = props;
 
-    const isActiveAppLink = (
-        { isActive }: isActiveNavlinkArg,
-    ) => (isActive ? `${cls.activeApplink} ${className}` : `${cls.applink} ${className}`);
+    const isActiveAppLink = hasActive ? (
+        (
+            { isActive }: isActiveNavlinkArg,
+        ) => (isActive ? `${cls.activeApplink} ${className}` : `${cls.applink} ${className}`)
+    ) : '';
 
     return (
         <NavLink
             to={to}
             className={isActiveAppLink}
+            onClick={onClick}
         >
-            {text}
+            {children}
         </NavLink>
     );
 });

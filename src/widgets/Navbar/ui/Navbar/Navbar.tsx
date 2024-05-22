@@ -1,5 +1,13 @@
 import { childrenRouteConfig } from 'App/Providers/RouterProvider';
+import {
+    filmActions,
+    filmCountriesFilterSelectOptions,
+    filmGenreFilterSelectOptions,
+    filmReleaseFilterSelectOptions,
+    filmSortSelectOptions,
+} from 'entities/Films';
 import { filmsFiltersActions } from 'features/GetFilms';
+import { filmApi } from 'features/GetFilms/api/filmApi/filmApi';
 import { memo, useCallback, useState } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
@@ -24,6 +32,15 @@ export const Navbar = memo(() => {
         dispatch(filmsFiltersActions.searchFilm(value));
     }, [dispatch]);
 
+    const onClickHandler = useCallback(() => {
+        dispatch(filmApi.util.resetApiState());
+        dispatch(filmActions.setPage(1));
+        dispatch(filmsFiltersActions.genreFilter(filmGenreFilterSelectOptions.all));
+        dispatch(filmsFiltersActions.sortSelect(filmSortSelectOptions.dateBy));
+        dispatch(filmsFiltersActions.countriesFilter(filmCountriesFilterSelectOptions.all));
+        dispatch(filmsFiltersActions.releasedFilter(filmReleaseFilterSelectOptions.all));
+    }, [dispatch]);
+
     return (
         <nav className={cls.navbar}>
             <div className={cls.applinks}>
@@ -33,8 +50,11 @@ export const Navbar = memo(() => {
                             <AppLink
                                 to={route.path}
                                 key={route.path}
-                                text={route.text}
-                            />
+                                onClick={onClickHandler}
+                                hasActive
+                            >
+                                { route.text}
+                            </AppLink>
                         ),
                     )
                 }

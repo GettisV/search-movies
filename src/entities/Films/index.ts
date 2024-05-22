@@ -1,9 +1,17 @@
+export { filmSearchReducer, filmSearchActions } from './model/slices/filmSearchSlice';
 export {
     getFilmsResponse,
-    getIsFetching,
-    getIsLoading,
+    getFilmsIsFetching,
+    getFilmsIsLoading,
+    getFilmsIsSuccess,
     getPage,
 } from './model/selectors/filmSelectors';
+export {
+    getFilmsSearchResponse,
+    getFilmsSearchIsFetching,
+    getFilmsSearchIsLoading,
+    getFilmsSearchIsSuccess,
+} from './model/selectors/filmSearchSelectors';
 export { filmReducer, filmActions } from './model/slices/filmSlice';
 export { filmSchema } from './model/types/film';
 export { FilmCard } from './ui/FilmCard/FilmCard';

@@ -44,10 +44,16 @@
 }
 
 .name{
+    max-width: 250px;
     font-size: 1.5rem;
     margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .text{
     font-size: 0.9rem;
+    max-height: 90px;
+    overflow: hidden;
 }

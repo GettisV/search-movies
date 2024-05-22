@@ -2,7 +2,8 @@ import {
     FilmsGrid,
     filmType,
     getFilmsResponse,
-    getIsFetching,
+    getFilmsIsFetching,
+    getFilmsIsSuccess,
 } from 'entities/Films';
 import {
     FilmsFilters,
@@ -25,7 +26,8 @@ export const FilmsList = memo((props: FilmsListType) => {
     } = props;
 
     const data = useAppSelector(getFilmsResponse);
-    const isFetching = useAppSelector(getIsFetching);
+    const isFetching = useAppSelector(getFilmsIsFetching);
+    const isSuccess = useAppSelector(getFilmsIsSuccess);
 
     return (
         <section
@@ -35,6 +37,12 @@ export const FilmsList = memo((props: FilmsListType) => {
                 filmType={filmType}
             />
             <FilmsGrid films={data} />
+            {
+                !Boolean(data?.docs?.length)
+                && !isFetching
+                && isSuccess
+                && <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>
+            }
             {
                 isFetching && (
                     <div className={cls.loaderBlock}>

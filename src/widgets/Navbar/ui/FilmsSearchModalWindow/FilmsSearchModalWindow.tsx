@@ -1,5 +1,9 @@
-import { FilmsGrid } from 'entities/Films';
-import { getFilmsResponseSearch, getIsFetching } from 'entities/Films/model/selectors/filmSelectors';
+import {
+    FilmsGrid,
+    getFilmsSearchIsFetching,
+    getFilmsSearchIsSuccess,
+    getFilmsSearchResponse,
+} from 'entities/Films';
 import { FilmsSearchInput, getFilmSearchValue } from 'features/GetFilms';
 import {
     KeyboardEvent, memo,
@@ -35,9 +39,10 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
         [cls.show!]: stateModal,
     };
 
-    const data = useAppSelector(getFilmsResponseSearch);
+    const data = useAppSelector(getFilmsSearchResponse);
     const searchInput = useAppSelector(getFilmSearchValue);
-    const isFetching = useAppSelector(getIsFetching);
+    const isFetching = useAppSelector(getFilmsSearchIsFetching);
+    const isSuccess = useAppSelector(getFilmsSearchIsSuccess);
 
     useEffect(() => {
         if (stateModal) {
@@ -54,6 +59,24 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
     const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Escape') closeModal?.();
     }, [closeModal]);
+
+    function getFilmsGrid() {
+        if (
+            !Boolean(data?.docs?.length)
+            && !isFetching
+            && isSuccess
+        ) {
+            return <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>;
+        }
+
+        return searchInput
+            ? (
+                <Container>
+                    <FilmsGrid films={data} />
+                </Container>
+            )
+            : <div />;
+    }
 
     return (
         <Portal domElement={document.body}>
@@ -81,12 +104,9 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                     </button>
                 </div>
                 {
-                    isFetching ? <LoaderPage />
-                        : searchInput && (
-                            <Container>
-                                <FilmsGrid films={data} />
-                            </Container>
-                        )
+                    isFetching
+                        ? <LoaderPage />
+                        : getFilmsGrid()
                 }
             </div>
         </Portal>

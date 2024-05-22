@@ -20,13 +20,13 @@ export const FilmCard = memo((props: FilmCardType) => {
             <img
                 className={cls.img}
                 src={filmInfo.poster?.previewUrl || movieImg}
-                alt={filmInfo.poster?.previewUrl || ''}
+                alt={filmInfo.poster?.previewUrl || movieImg}
             />
             <div className={cls.infoFilm}>
                 <div className={cls.nameDescription}>
                     <h2 className={cls.name}>{ filmInfo.name || 'Нет имени' }</h2>
                     <p className={cls.text}>
-                        { filmInfo.shortDescription || 'Нет краткого описания'}
+                        { filmInfo.shortDescription || filmInfo.description || 'Нет краткого описания'}
                     </p>
                 </div>
             </div>

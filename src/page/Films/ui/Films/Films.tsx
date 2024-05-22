@@ -1,8 +1,9 @@
 import {
     filmActions,
     filmType,
+    getFilmsIsFetching,
     getFilmsResponse,
-    getIsFetching, getPage,
+    getPage,
 } from 'entities/Films';
 import { memo, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
@@ -24,7 +25,7 @@ const Films = memo((props: FilmsProps) => {
     const dataIsExist = Boolean(data?.docs.length);
 
     const page = useAppSelector(getPage);
-    const isFetching = useAppSelector(getIsFetching);
+    const isFetching = useAppSelector(getFilmsIsFetching);
 
     const paramsPage = {
         infiniteScrollIsWork: dataIsExist,

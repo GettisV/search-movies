@@ -2,12 +2,8 @@ import {
     FilmSelectFilterCountries,
     FilmSelectFilterGenre,
     FilmSelectFilterRelease,
-    FilmSelectSort,
-    filmActions,
-    filmCountriesFilterSelectOptions,
-    filmGenreFilterSelectOptions,
-    filmReleaseFilterSelectOptions,
-    filmSortSelectOptions,
+    FilmSelectSort, filmActions, filmCountriesFilterSelectOptions,
+    filmGenreFilterSelectOptions, filmSortSelectOptions,
     filmType,
     getPage,
 } from 'entities/Films';
@@ -44,8 +40,17 @@ export const FilmsFilters = memo((props: FilmFiltersType) => {
     const filmPage = useAppSelector(getPage);
     const filmLimit = 20;
 
+    const resetFilmsStore = useCallback(() => {
+        dispatch(filmApi.util.resetApiState());
+        dispatch(filmActions.setPage(1));
+        dispatch(filmActions.setFilmResponse(undefined));
+    }, [dispatch]);
+
     const {
-        data, isLoading, isFetching, isSuccess,
+        data,
+        isLoading,
+        isFetching,
+        isSuccess,
     } = useGetFilmQuery({
         page: filmPage,
         limit: filmLimit,
@@ -63,45 +68,26 @@ export const FilmsFilters = memo((props: FilmFiltersType) => {
         dispatch(filmActions.setFilmResponse(data));
     }, [data, dispatch, isFetching, isLoading, isSuccess]);
 
-    useEffect(() => {
-        dispatch(filmsFiltersActions.sortSelect(filmSortSelectOptions.dateBy));
-        dispatch(filmsFiltersActions.genreFilter(filmGenreFilterSelectOptions.all));
-        dispatch(filmsFiltersActions.countriesFilter(filmCountriesFilterSelectOptions.all));
-        dispatch(filmsFiltersActions.releasedFilter(filmReleaseFilterSelectOptions.all));
-    }, [dispatch, filmType]);
-
     const onChangeSort = useCallback((value: filmSortSelectOptions) => {
-        dispatch(filmApi.util.resetApiState());
-        dispatch(filmActions.setPage(1));
-        dispatch(filmActions.setFilmResponse(undefined));
-
+        resetFilmsStore();
         dispatch(filmsFiltersActions.sortSelect(value));
-    }, [dispatch]);
+    }, [dispatch, resetFilmsStore]);
 
     const onChangeFilterGenre = useCallback((value: filmGenreFilterSelectOptions) => {
-        dispatch(filmApi.util.resetApiState());
-        dispatch(filmActions.setPage(1));
-        dispatch(filmActions.setFilmResponse(undefined));
-
+        resetFilmsStore();
         dispatch(filmsFiltersActions.genreFilter(value));
-    }, [dispatch]);
+    }, [dispatch, resetFilmsStore]);
 
     const onChangeFilterCountries = useCallback((value: filmCountriesFilterSelectOptions) => {
-        dispatch(filmApi.util.resetApiState());
-        dispatch(filmActions.setPage(1));
-        dispatch(filmActions.setFilmResponse(undefined));
-
+        resetFilmsStore();
         dispatch(filmsFiltersActions.countriesFilter(value));
-    }, [dispatch]);
+    }, [dispatch, resetFilmsStore]);
 
     // значения объекта filmReleaseFilterSelectOptions
     const onChangeFilterRelease = useCallback((value: string) => {
-        dispatch(filmApi.util.resetApiState());
-        dispatch(filmActions.setPage(1));
-        dispatch(filmActions.setFilmResponse(undefined));
-
+        resetFilmsStore();
         dispatch(filmsFiltersActions.releasedFilter(value));
-    }, [dispatch]);
+    }, [dispatch, resetFilmsStore]);
 
     return (
         <div className={classNames(cls.filmFilters, {}, [className])}>

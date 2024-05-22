@@ -1,4 +1,4 @@
-import { filmActions } from 'entities/Films';
+import { filmActions, filmSearchActions } from 'entities/Films';
 import { useLazyGetSearchFilmQuery } from 'features/GetFilms';
 import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
 import { memo, useEffect } from 'react';
@@ -35,21 +35,21 @@ export const FilmsSearchInput = memo((props: FIlmsSearchInputType) => {
     useEffect(() => {
         if (!searchInput) {
             dispatch(filmSearchApi.util.resetApiState());
-            dispatch(filmActions.setFilmResponseSearch(undefined));
+            dispatch(filmSearchActions.setFilmSearchResponse(undefined));
         }
 
         if (searchInput) {
-            dispatch(filmActions.setFilmResponseSearch(data));
+            dispatch(filmSearchActions.setFilmSearchResponse(data));
         }
 
-        dispatch(filmActions.setIsLoading(isLoading));
-        dispatch(filmActions.setIsFetching(isFetching));
-        dispatch(filmActions.setIsSuccess(isSuccess));
+        dispatch(filmSearchActions.setIsLoading(isLoading));
+        dispatch(filmSearchActions.setIsFetching(isFetching));
+        dispatch(filmSearchActions.setIsSuccess(isSuccess));
     }, [data, dispatch, isFetching, isLoading, isSuccess, searchInput]);
 
     const onChangeInputHandler = (value: string) => {
         onChangeInput?.(value);
-        dispatch(filmActions.setIsSuccess(false));
+        dispatch(filmSearchActions.setIsSuccess(false));
 
         if (value) {
             querySearchFilms({ searchText: value });

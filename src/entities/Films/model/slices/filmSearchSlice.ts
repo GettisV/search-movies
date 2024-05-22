@@ -1,24 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { filmResponseServerType } from 'features/GetFilms';
-import { filmSchema } from '../types/film';
+import { filmSearchSchema } from '../types/film';
 
-const initialState: filmSchema = {
-    page: 1,
-    filmsResponse: undefined,
+const initialState: filmSearchSchema = {
+    filmsSearchResponse: undefined,
     isLoading: true,
     isFetching: true,
     isSuccess: false,
 };
 
-export const filmSlice = createSlice({
-    name: 'film',
+export const filmSearchSlice = createSlice({
+    name: 'filmSearch',
     initialState,
     reducers: {
-        setPage(state, action: PayloadAction<number>) {
-            state.page = action.payload;
-        },
-        setFilmResponse(state, action: PayloadAction<filmResponseServerType | undefined>) {
-            state.filmsResponse = action.payload;
+        setFilmSearchResponse(state, action: PayloadAction<filmResponseServerType | undefined>) {
+            state.filmsSearchResponse = action.payload;
         },
         setIsLoading(state, action: PayloadAction<boolean>) {
             state.isLoading = action.payload;
@@ -32,5 +28,5 @@ export const filmSlice = createSlice({
     },
 });
 
-export const filmReducer = filmSlice.reducer;
-export const filmActions = filmSlice.actions;
+export const filmSearchReducer = filmSearchSlice.reducer;
+export const filmSearchActions = filmSearchSlice.actions;
