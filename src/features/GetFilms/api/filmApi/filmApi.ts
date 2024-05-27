@@ -1,5 +1,6 @@
 import { rtkApi } from 'shared/api/rtkApi';
 import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
+import { findDuplicates } from 'shared/lib/findDuplicates';
 import { filmResponseServerType } from '../../model/types/filmsResponseTypes';
 import { filmArg } from '../../model/types/filmsTypes';
 
@@ -36,10 +37,11 @@ export const filmApi = rtkApi.injectEndpoints({
             },
             serializeQueryArgs: ({ endpointName }) => endpointName,
             merge: (currentCache, newItems, { arg }) => {
-                if (currentCache.docs[0]?.type === arg.filmType) {
+                if (
+                    currentCache.docs[0]?.type === arg.filmType
+                    && !findDuplicates(currentCache.docs, newItems.docs)
+                ) {
                     currentCache.docs.push(...newItems.docs);
-                } else {
-                    currentCache.docs = [...newItems.docs];
                 }
             },
             forceRefetch({ currentArg, previousArg }) {

@@ -1,9 +1,5 @@
-interface defaultType { name: string }
-interface countriesType extends defaultType{}
-
-interface genresType<T>{
-    name: T,
-}
+interface countriesType { name: string }
+interface genresType { name: string }
 
 interface posterType{
     url: string,
@@ -25,7 +21,7 @@ export interface filmTypeResponseServer{
     shortDescription: string,
     year: number,
     poster: posterType,
-    genres: genresType<string>[],
+    genres: genresType[],
     countries: countriesType[],
     alternativeName: string,
     ageRating: number,

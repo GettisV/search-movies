@@ -1,6 +1,8 @@
 import { filmResponseServerType } from 'features/GetFilms';
 import { memo } from 'react';
 import { Grid } from 'shared/ui/Grid/Grid';
+import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
+import { RoutePath } from 'App/Providers/RouterProvider';
 import { FilmCard } from '../../ui/FilmCard/FilmCard';
 import cls from './FilmsGrid.module.scss';
 
@@ -13,21 +15,19 @@ export const FilmsGrid = memo((props: FilmsListProps) => {
         films,
     } = props;
 
-    // const isFetching = useAppSelector(getIsFetching);
-    // const isSuccess = useAppSelector(getIsSuccess);
-
-    // if (!Boolean(films?.docs?.length) && !isFetching && isSuccess) {
-    //     return <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>;
-    // }
-
     return (
         <Grid className={cls.filmsGrid}>
             {
                 films?.docs?.map((film) => (
-                    <FilmCard
+                    <AppLink
                         key={film.id}
-                        filmInfo={film}
-                    />
+                        to={RoutePath.film_details + film.id}
+                        theme={AppLinkThemes.BOX_LINK}
+                    >
+                        <FilmCard
+                            filmInfo={film}
+                        />
+                    </AppLink>
                 ))
             }
         </Grid>

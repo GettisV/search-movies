@@ -8,11 +8,11 @@ import {
 } from 'entities/Films';
 import { filmsFiltersActions } from 'features/GetFilms';
 import { filmApi } from 'features/GetFilms/api/filmApi/filmApi';
+import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
 import { memo, useCallback, useState } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
-import { AppLink } from 'shared/ui/AppLink/AppLink';
-import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
+import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 import cls from './Navbar.module.scss';
 
@@ -22,7 +22,7 @@ export const Navbar = memo(() => {
     const dispatch = useAppDispatch();
 
     const closeModalHandler = useCallback(() => {
-        dispatch(filmSearchApi.util.resetApiState());
+        // dispatch(filmSearchApi.util.resetApiState());
         dispatch(filmsFiltersActions.searchFilm(''));
         setStateModal(false);
     }, [dispatch]);
@@ -49,11 +49,12 @@ export const Navbar = memo(() => {
             <div className={cls.applinks}>
                 {
                     childrenRouteConfig.map(
-                        (route) => (
+                        (route) => route.navbar && (
                             <AppLink
                                 to={route.path}
                                 key={route.path}
                                 onClick={onClickHandler}
+                                theme={AppLinkThemes.APP_LINK}
                                 hasActive
                             >
                                 { route.text}

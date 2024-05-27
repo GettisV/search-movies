@@ -1,17 +1,24 @@
 import { ReactNode, memo } from 'react';
 import { NavLink } from 'react-router-dom';
+import { classNames } from 'shared/lib/classNames';
 import cls from './AppLink.module.scss';
+
+export enum AppLinkThemes{
+    APP_LINK = 'appLink',
+    BOX_LINK = 'boxLink',
+}
 
 interface AppLinkType{
     className?: string;
-    to: string,
-    children: ReactNode,
+    to: string;
+    children: ReactNode;
     hasActive?: boolean;
-    onClick: () => void;
+    onClick?: () => void;
+    theme: AppLinkThemes;
 }
 
 interface isActiveNavlinkArg {
-    isActive: boolean
+    isActive: boolean;
 }
 
 export const AppLink = memo((props: AppLinkType) => {
@@ -21,18 +28,24 @@ export const AppLink = memo((props: AppLinkType) => {
         children,
         hasActive,
         onClick,
+        theme = AppLinkThemes.APP_LINK,
     } = props;
 
-    const isActiveAppLink = hasActive ? (
-        (
+    const classNameAppLink = hasActive
+        ? (
             { isActive }: isActiveNavlinkArg,
-        ) => (isActive ? `${cls.activeApplink} ${className}` : `${cls.applink} ${className}`)
-    ) : '';
+        ) => (
+            isActive
+                ? classNames(cls.activeAppLink, {}, [className])
+                : classNames(cls[AppLinkThemes.APP_LINK], {}, [className])
+
+        )
+        : classNames(cls[theme], {}, [className]);
 
     return (
         <NavLink
             to={to}
-            className={isActiveAppLink}
+            className={classNameAppLink}
             onClick={onClick}
         >
             {children}

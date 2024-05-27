@@ -37,6 +37,7 @@ module.exports = {
             'warn',
             { argsIgnorePattern: '^_' },
         ],
+        'no-restricted-syntax': 'off',
         'react/require-default-props': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-props-no-spreading': 'warn',

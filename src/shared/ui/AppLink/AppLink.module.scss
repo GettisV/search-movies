@@ -1,13 +1,21 @@
-.applink {
+.app-link {
     color: whitesmoke;
     display: block;
     text-decoration: none;
     padding: 8px 13px;
 }
 
-.active-applink {
+.active-app-link {
     color: rgb(255 255 255 / 62%);
     display: block;
     text-decoration: none;
     padding: 8px 13px;
+}
+
+.box-link{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: whitesmoke;
+    text-decoration: none;
 }

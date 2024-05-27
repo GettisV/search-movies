@@ -1,0 +1,56 @@
+.film-info{
+    margin-top: 50px;
+}
+
+.film-info-container{
+    margin-top: 40px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.alternative-name{
+    margin-top: 10px;
+    color: rgba($color: #fff, $alpha: 80%)
+}
+
+.poster-container{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-flow: column;
+}
+
+.film-info-details{
+    padding-left: 35px;
+    max-width: 550px;
+    font-size: 1.15rem;
+}
+
+.poster{
+    width: 350px;
+    border-radius: 15px;
+}
+
+.bold{
+    font-weight: 700;
+}
+
+.header{
+    color: rgb(255 231 216 / 85%);
+}
+
+.mr10{
+    margin-right: 10px;
+}
+
+.mt10{
+    margin-top: 10px;
+}
+
+.film-info-details > *:not(:first-child){
+    margin-top: 10px;
+}
+
+.container-description{
+    margin-top: 30px;
+}

@@ -1,5 +1,6 @@
 import {
     FilmsGrid,
+    filmSearchActions,
     getFilmsSearchIsFetching,
     getFilmsSearchIsSuccess,
     getFilmsSearchResponse,
@@ -10,7 +11,7 @@ import {
     useCallback,
     useEffect,
 } from 'react';
-import { useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
+import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { cancelEventBubbling } from 'shared/lib/cancelEventBubbling';
 import { classNames } from 'shared/lib/classNames';
 import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
@@ -39,6 +40,7 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
         [cls.show!]: stateModal,
     };
 
+    const dispatch = useAppDispatch();
     const data = useAppSelector(getFilmsSearchResponse);
     const searchInput = useAppSelector(getFilmSearchValue);
     const isFetching = useAppSelector(getFilmsSearchIsFetching);
@@ -53,8 +55,9 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
     }, [stateModal]);
 
     const closeModalHandler = useCallback(() => {
+        dispatch(filmSearchActions.setIsSuccess(false));
         closeModal?.();
-    }, [closeModal]);
+    }, [closeModal, dispatch]);
 
     const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Escape') closeModal?.();

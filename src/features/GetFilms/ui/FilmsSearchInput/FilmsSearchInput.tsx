@@ -34,7 +34,7 @@ export const FilmsSearchInput = memo((props: FIlmsSearchInputType) => {
 
     useEffect(() => {
         if (!searchInput) {
-            dispatch(filmSearchApi.util.resetApiState());
+            // dispatch(filmSearchApi.util.resetApiState());
             dispatch(filmSearchActions.setFilmSearchResponse(undefined));
         }
 

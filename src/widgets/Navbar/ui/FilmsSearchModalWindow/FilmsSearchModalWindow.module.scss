@@ -39,3 +39,12 @@
     margin-right: 50px;
     order: 999;
 }
+
+.films-not-found{
+    width: 100%;
+    margin-top: 150px;
+    display: grid;
+    place-content: center center;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
