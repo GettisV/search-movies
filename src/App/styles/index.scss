@@ -5,7 +5,8 @@
 html,
 button,
 input,
-input::placeholder {
+input::placeholder,
+select {
     font-family: Roboto, sans-serif;
     font-size: 16px;
     font-style: 400;

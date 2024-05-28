@@ -1,6 +1,5 @@
-import { filmActions, filmSearchActions } from 'entities/Films';
+import { filmSearchActions } from 'entities/Films';
 import { useLazyGetSearchFilmQuery } from 'features/GetFilms';
-import { filmSearchApi } from 'features/GetFilms/api/filmApi/filmSearchApi';
 import { memo, useEffect } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';

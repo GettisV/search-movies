@@ -35,7 +35,7 @@ export const Page = memo((props: PageType) => {
     });
 
     return (
-        <section
+        <main
             className={classNames('', {}, [className])}
             ref={wrapperRef}
         >
@@ -44,6 +44,6 @@ export const Page = memo((props: PageType) => {
                 className={cls.trigger}
                 ref={elementRef}
             />
-        </section>
+        </main>
     );
 });

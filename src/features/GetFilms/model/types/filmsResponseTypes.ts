@@ -25,6 +25,7 @@ export interface filmTypeResponseServer{
     countries: countriesType[],
     alternativeName: string,
     ageRating: number,
+    seriesLength: number,
 }
 
 export interface filmResponseServerType{

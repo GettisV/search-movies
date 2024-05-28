@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ratingType } from 'page/Films';
+import { ratingType } from 'features/GetFilms';
 import cls from './FilmRatings.module.scss';
 
 interface FilmRatingsType{

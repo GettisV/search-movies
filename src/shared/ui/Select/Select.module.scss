@@ -1,3 +1,16 @@
 .select-div{
     opacity: 1;
 }
+
+.select{
+    font-size: 14px;
+    font-weight: 400;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: whitesmoke;
+    cursor: pointer;
+    background-color: rgb(58 58 58);
+    backdrop-filter: blur(10px);
+}

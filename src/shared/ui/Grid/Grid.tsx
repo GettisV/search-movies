@@ -14,8 +14,8 @@ export function Grid(props: GridProps) {
     } = props;
 
     return (
-        <div className={classNames(cls.grid, {}, [className])}>
+        <section className={classNames(cls.grid, {}, [className])}>
             {children}
-        </div>
+        </section>
     );
 }

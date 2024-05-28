@@ -22,7 +22,7 @@ export const Navbar = memo(() => {
     const dispatch = useAppDispatch();
 
     const closeModalHandler = useCallback(() => {
-        // dispatch(filmSearchApi.util.resetApiState());
+        dispatch(filmSearchApi.util.resetApiState());
         dispatch(filmsFiltersActions.searchFilm(''));
         setStateModal(false);
     }, [dispatch]);

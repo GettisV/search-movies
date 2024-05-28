@@ -1,13 +1,8 @@
+export { filmSearchApi, useLazyGetSearchFilmQuery } from './api/filmApi/filmSearchApi';
+export { useGetFilmDetaisQuery, useGetFilmQuery, filmApi } from './api/filmApi/filmApi';
+export { ratingType, filmDetailsResponseServerType } from './model/types/filmDetailsResponseServerType';
+
 export { filmFiltersSchema } from './model/types/filmsTypes';
-
-export {
-    useGetFilmQuery,
-} from './api/filmApi/filmApi';
-
-export {
-    useLazyGetSearchFilmQuery,
-} from './api/filmApi/filmSearchApi';
-
 export {
     filmArg,
     filmSearchArg,

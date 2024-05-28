@@ -31,6 +31,7 @@ export const Select = <T extends string>(props: SelectType<T>) => {
             className={classNames(cls.selectDiv, {}, [className])}
         >
             <select
+                className={classNames(cls.select, {}, [className])}
                 value={value}
                 onChange={onChangeHandler}
             >

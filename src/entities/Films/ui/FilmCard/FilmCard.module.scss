@@ -57,3 +57,33 @@
     max-height: 90px;
     overflow: hidden;
 }
+
+.rating-div{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: auto;
+    justify-content: end;
+    align-items: center;
+}
+
+.time-div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: auto;
+    justify-content: end;
+    align-items: center;
+}
+
+.time{
+    width: 20px;
+    margin-right: 5px;
+}
+
+.rating-star{
+    width: 20px;
+    margin-right: 5px;
+}

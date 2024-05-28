@@ -1,10 +1,20 @@
-import { rtkApi } from 'shared/api/rtkApi';
-import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
+import { API_KEY } from 'shared/constants/API_KEY';
 import { findDuplicates } from 'shared/lib/findDuplicates';
+import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { filmDetailsResponseServerType } from '../../model/types/filmDetailsResponseServerType';
+import { filmDetailsArg } from '../../model/types/filmDetailsTypes';
 import { filmResponseServerType } from '../../model/types/filmsResponseTypes';
 import { filmArg } from '../../model/types/filmsTypes';
 
-export const filmApi = rtkApi.injectEndpoints({
+export const filmApi = createApi({
+    reducerPath: 'filmApi',
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://api.kinopoisk.dev/v1.4',
+        prepareHeaders: (header) => {
+            header.set('X-API-KEY', API_KEY);
+        },
+    }),
     endpoints: (build) => ({
         getFilm: build.query<filmResponseServerType, filmArg>({
             query: ({
@@ -48,8 +58,12 @@ export const filmApi = rtkApi.injectEndpoints({
                 return currentArg !== previousArg;
             },
         }),
+        getFilmDetais: build.query<filmDetailsResponseServerType, filmDetailsArg>({
+            query: ({ id }) => ({
+                url: `movie/${id && id}`,
+            }),
+        }),
     }),
-
 });
 
-export const { useGetFilmQuery } = filmApi;
+export const { useGetFilmQuery, useGetFilmDetaisQuery } = filmApi;

@@ -1,6 +1,6 @@
-import { filmDetailsResponseServerType } from 'page/Films';
 import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames';
+import { filmDetailsResponseServerType } from 'features/GetFilms';
 import { FilmLength } from '../FilmLength/FilmLength';
 import { FilmRatings } from '../FilmRatings/FilmRatings';
 import cls from './FilmInfo.module.scss';

@@ -1,7 +1,10 @@
 import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames';
 import { filmTypeResponseServer } from 'features/GetFilms';
-import movieImg from '../../assets/movie.png';
+import { filmType } from 'entities/Films/model/types/filmFiltersTypes';
+import photoNoExistPng from '../../assets/photoNoExist.jpg';
+import ratingStarPng from '../../assets/ratingStar.png';
+import timePng from '../../assets/time.png';
 import cls from './FilmCard.module.scss';
 
 interface FilmCardType{
@@ -15,14 +18,37 @@ export const FilmCard = memo((props: FilmCardType) => {
         className,
     } = props;
 
+    const ratingKp = String(filmInfo.rating.kp).slice(0, 3);
+    const ratingImdb = String(filmInfo.rating.kp).slice(0, 3);
+
     return (
-        <section className={classNames(cls.card, {}, [className])}>
+        <div className={classNames(cls.card, {}, [className])}>
             <img
                 className={cls.img}
-                src={filmInfo.poster?.previewUrl || movieImg}
-                alt={filmInfo.poster?.previewUrl || movieImg}
+                src={filmInfo.poster?.previewUrl || photoNoExistPng}
+                alt={filmInfo.poster?.previewUrl || photoNoExistPng}
             />
             <div className={cls.infoFilm}>
+                {
+                    (ratingKp.trim() || ratingImdb.trim()) && (
+                        <div className={cls.ratingDiv}>
+                            <img className={cls.ratingStar} src={ratingStarPng} alt={ratingStarPng} />
+                            {ratingKp || ratingImdb}
+                        </div>
+                    )
+                }
+                {
+                    (filmInfo.seriesLength || filmInfo.movieLength) && (
+                        <div className={cls.timeDiv}>
+                            <img className={cls.time} src={timePng} alt={timePng} />
+                            {
+                                filmInfo.type === filmType.SERIALS
+                                    ? filmInfo.seriesLength
+                                    : filmInfo.movieLength
+                            }
+                        </div>
+                    )
+                }
                 <div className={cls.nameDescription}>
                     <h2 className={cls.name}>{ filmInfo.name || 'Нет имени' }</h2>
                     <p className={cls.text}>
@@ -30,6 +56,6 @@ export const FilmCard = memo((props: FilmCardType) => {
                     </p>
                 </div>
             </div>
-        </section>
+        </div>
     );
 });
