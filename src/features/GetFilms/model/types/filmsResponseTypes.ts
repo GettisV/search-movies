@@ -29,5 +29,6 @@ export interface filmTypeResponseServer{
 }
 
 export interface filmResponseServerType{
-    docs: filmTypeResponseServer[]
+    docs: filmTypeResponseServer[];
+    pages: number;
 }

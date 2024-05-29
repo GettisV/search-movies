@@ -32,7 +32,7 @@ const Films = memo((props: FilmsProps) => {
     };
 
     const onScrollEnd = useCallback(() => {
-        if (dataIsExist && !isFetching) {
+        if (dataIsExist && !isFetching && (page <= data?.pages!)) {
             dispatch(filmActions.setPage(page + 1));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
