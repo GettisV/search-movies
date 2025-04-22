@@ -15,6 +15,8 @@ export interface filmArg {
     filmFilterRelease: string,
 }
 
+export type filmHomeArg = Pick<filmArg, 'filmType' | 'filmFilterGenre'>
+
 export interface filmSearchArg {
     searchText: string,
 }

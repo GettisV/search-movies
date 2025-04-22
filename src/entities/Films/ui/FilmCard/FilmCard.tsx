@@ -21,13 +21,25 @@ export const FilmCard = memo((props: FilmCardType) => {
     const ratingKp = String(filmInfo.rating.kp).slice(0, 3);
     const ratingImdb = String(filmInfo.rating.kp).slice(0, 3);
 
-    return (
-        <div className={classNames(cls.card, {}, [className])}>
+    function existPhoto() {
+        return filmInfo.poster?.previewUrl ? (
             <img
                 className={cls.img}
-                src={filmInfo.poster?.previewUrl || photoNoExistPng}
-                alt={filmInfo.poster?.previewUrl || photoNoExistPng}
+                src={filmInfo.poster?.previewUrl}
+                alt={filmInfo.poster?.previewUrl}
             />
+        ) : (
+            <img
+                className={cls.img}
+                src={photoNoExistPng}
+                alt={photoNoExistPng}
+            />
+        );
+    }
+
+    return (
+        <div className={classNames(cls.card, {}, [className])}>
+            { existPhoto()}
             <div className={cls.infoFilm}>
                 {
                     (ratingKp.trim() || ratingImdb.trim()) && (

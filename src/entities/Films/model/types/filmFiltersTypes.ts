@@ -5,7 +5,7 @@ export enum filmType {
 }
 
 export enum filmSortSelectOptions{
-    ratingBy = 'rating.kp',
+    ratingBy = 'rating.imdb',
     dateBy = 'releaseYears.start',
 }
 

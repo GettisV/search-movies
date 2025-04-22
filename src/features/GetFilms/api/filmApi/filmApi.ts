@@ -1,11 +1,15 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { filmSortSelectOptions } from 'entities/Films';
 import { API_KEY } from 'shared/constants/API_KEY';
 import { findDuplicates } from 'shared/lib/findDuplicates';
+import getFullYear from 'shared/lib/getFullYear';
 import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { filmDetailsResponseServerType } from '../../model/types/filmDetailsResponseServerType';
 import { filmDetailsArg } from '../../model/types/filmDetailsTypes';
 import { filmResponseServerType } from '../../model/types/filmsResponseTypes';
-import { filmArg } from '../../model/types/filmsTypes';
+import {
+    filmArg, filmHomeArg,
+} from '../../model/types/filmsTypes';
 
 export const filmApi = createApi({
     reducerPath: 'filmApi',
@@ -37,8 +41,8 @@ export const filmApi = createApi({
                         notNullFields: 'poster.url',
                         'genres.name': filmFilterGenre,
                         'countries.name': filmFilterCountry,
-                        'rating.kp': '5.5-10',
-                        'votes.kp': '10000-6666666',
+                        'rating.imdb': '5-10',
+                        'votes.imdb': '20000-6666666',
                         year: filmFilterRelease,
                     }),
                 };
@@ -58,12 +62,35 @@ export const filmApi = createApi({
                 return currentArg !== previousArg;
             },
         }),
-        getFilmDetais: build.query<filmDetailsResponseServerType, filmDetailsArg>({
+        getFilmsDetails: build.query<filmDetailsResponseServerType, filmDetailsArg>({
             query: ({ id }) => ({
                 url: `movie/${id && id}`,
             }),
         }),
+        getFilmsHomePage: build.query<filmResponseServerType, filmHomeArg>({
+            query: ({
+                filmType,
+                filmFilterGenre,
+            }) => {
+                const argsRequest = {
+                    url: 'movie',
+                    params: removeEmptyValuesInObject({
+                        limit: 10,
+                        sortField: filmSortSelectOptions.ratingBy,
+                        sortType: -1,
+                        type: filmType,
+                        notNullFields: 'poster.url',
+                        'genres.name': filmFilterGenre,
+                        'rating.imdb': '6-10',
+                        'votes.imdb': '40000-6666666',
+                        year: `${getFullYear() - 1}-${getFullYear()}`,
+                    }),
+                };
+
+                return argsRequest;
+            },
+        }),
     }),
 });
 
-export const { useGetFilmQuery, useGetFilmDetaisQuery } = filmApi;
+export const { useGetFilmQuery, useGetFilmsHomePageQuery, useGetFilmsDetailsQuery } = filmApi;

@@ -1,5 +1,7 @@
 export { filmSearchApi, useLazyGetSearchFilmQuery } from './api/filmApi/filmSearchApi';
-export { useGetFilmDetaisQuery, useGetFilmQuery, filmApi } from './api/filmApi/filmApi';
+export {
+    useGetFilmsDetailsQuery, useGetFilmsHomePageQuery, useGetFilmQuery, filmApi,
+} from './api/filmApi/filmApi';
 export { ratingType, filmDetailsResponseServerType } from './model/types/filmDetailsResponseServerType';
 
 export { filmFiltersSchema } from './model/types/filmsTypes';
