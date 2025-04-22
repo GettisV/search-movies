@@ -1,10 +1,10 @@
 import { filmType } from 'entities/Films';
-import { FilmDetailsPage, Films } from 'page/Films';
+import { FilmDetailsPage, Films, HomePage } from 'page/Films';
 import { RouteObject } from 'react-router-dom';
 import { MainOutlet } from 'shared/ui/MainOutlet/MainOutlet';
 
 export enum AppRoutes{
-    HOME = 'home',
+    MAIN = 'main',
     FILMS = 'films',
     SERIES = 'series',
     CARTOONS = 'cartoons',
@@ -12,7 +12,7 @@ export enum AppRoutes{
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
-    [AppRoutes.HOME]: '/',
+    [AppRoutes.MAIN]: '/',
     [AppRoutes.FILMS]: '/films',
     [AppRoutes.SERIES]: '/series',
     [AppRoutes.CARTOONS]: '/cartoons',
@@ -20,6 +20,10 @@ export const RoutePath: Record<AppRoutes, string> = {
 };
 
 export const childrenRouteConfig = [
+    {
+        index: true,
+        element: <HomePage />,
+    },
     {
         path: RoutePath.films,
         text: 'Фильмы',
@@ -47,7 +51,7 @@ export const childrenRouteConfig = [
 
 export const RouteConfig: RouteObject[] = [
     {
-        path: RoutePath.home,
+        path: RoutePath.main,
         element: <MainOutlet />,
         children: childrenRouteConfig,
     },
