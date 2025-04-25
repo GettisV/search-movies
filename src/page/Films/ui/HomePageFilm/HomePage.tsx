@@ -1,34 +1,44 @@
-import { filmGenreFilterSelectOptions, filmType } from 'entities/Films';
+import { FilmCard, filmGenreFilterSelectOptions, filmType } from 'entities/Films';
 import { useGetFilmsHomePageQuery } from 'features/GetFilms';
 import { memo } from 'react';
-import {
-    Navigation, Pagination, Scrollbar, A11y,
-} from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import './HomePageStyleSwiper.css';
+import { Page } from 'shared/ui/Page/Page';
+import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
+import { RoutePath } from 'App/Providers/RouterProvider';
+import styles from './HomePage.module.scss';
 
-// Import Swiper styles
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
+const HomePage = memo(() => {
+    const { data } = useGetFilmsHomePageQuery({
+        filmType: filmType.FILMS,
+        filmFilterGenre: filmGenreFilterSelectOptions.detective,
+    });
 
-// const { data } = useGetFilmsHomePageQuery({
-//     filmType: filmType.FILMS,
-//     filmFilterGenre: filmGenreFilterSelectOptions.detective,
-// });
-const HomePage = memo(() => (
-    // <Swiper
-    //     spaceBetween={50}
-    //     slidesPerView={3}
-    //     onSlideChange={() => console.log('slide change')}
-    //     onSwiper={(swiper) => console.log(swiper)}
-    // >
-    //     <SwiperSlide>Slide 1</SwiperSlide>
-    //     <SwiperSlide>Slide 2</SwiperSlide>
-    //     <SwiperSlide>Slide 3</SwiperSlide>
-    //     <SwiperSlide>Slide 4</SwiperSlide>
-    // </Swiper>
-    <div>1</div>
-));
+    return (
+        <Page className={styles.page}>
+            <Swiper
+                spaceBetween={30}
+                slidesPerView={4}
+                loop
+            >
+                {data?.docs?.map((filmInfo) => (
+                    <SwiperSlide key={filmInfo.id}>
+                        <AppLink
+                            key={filmInfo.id}
+                            to={RoutePath.film_details + filmInfo.id}
+                            theme={AppLinkThemes.BOX_LINK}
+                        >
+                            <FilmCard urlPoster={filmInfo.poster} filmInfo={filmInfo} className={styles.card} />
+                        </AppLink>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+
+        </Page>
+    );
+});
 
 export default HomePage;

@@ -24,6 +24,6 @@ export function loadersWebpack(options: ConfigWebpackTypes) {
         tsLoader,
         imageLoader,
         svgLoader,
-        stylesLoader,
+        ...stylesLoader,
     ];
 }

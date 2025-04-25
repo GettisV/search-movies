@@ -25,7 +25,9 @@ export const FilmsGrid = memo((props: FilmsListProps) => {
                         theme={AppLinkThemes.BOX_LINK}
                     >
                         <FilmCard
+                            urlPoster={film.poster}
                             filmInfo={film}
+                            className={cls.card}
                         />
                     </AppLink>
                 ))

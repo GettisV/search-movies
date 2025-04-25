@@ -8,25 +8,37 @@ import timePng from '../../assets/time.png';
 import cls from './FilmCard.module.scss';
 
 interface FilmCardType{
-    className?: string;
     filmInfo: filmTypeResponseServer;
+    urlPoster: filmTypeResponseServer['backdrop'];
+    className?: string;
 }
 
 export const FilmCard = memo((props: FilmCardType) => {
     const {
         filmInfo,
+        urlPoster,
         className,
     } = props;
 
-    const ratingKp = String(filmInfo.rating.kp).slice(0, 3);
-    const ratingImdb = String(filmInfo.rating.kp).slice(0, 3);
+    const {
+        rating,
+        movieLength,
+        seriesLength,
+        type,
+        description,
+        shortDescription,
+        name,
+    }:filmTypeResponseServer = filmInfo;
+
+    const ratingKp = String(rating.kp).slice(0, 3);
+    const ratingImdb = String(rating.kp).slice(0, 3);
 
     function existPhoto() {
-        return filmInfo.poster?.previewUrl ? (
+        return urlPoster?.url ? (
             <img
                 className={cls.img}
-                src={filmInfo.poster?.previewUrl}
-                alt={filmInfo.poster?.previewUrl}
+                src={urlPoster?.url}
+                alt={urlPoster?.url}
             />
         ) : (
             <img
@@ -39,7 +51,7 @@ export const FilmCard = memo((props: FilmCardType) => {
 
     return (
         <div className={classNames(cls.card, {}, [className])}>
-            { existPhoto()}
+            { existPhoto() }
             <div className={cls.infoFilm}>
                 {
                     (ratingKp.trim() || ratingImdb.trim()) && (
@@ -50,21 +62,21 @@ export const FilmCard = memo((props: FilmCardType) => {
                     )
                 }
                 {
-                    (filmInfo.seriesLength || filmInfo.movieLength) && (
+                    (seriesLength || movieLength) && (
                         <div className={cls.timeDiv}>
                             <img className={cls.time} src={timePng} alt={timePng} />
                             {
-                                filmInfo.type === filmType.SERIALS
-                                    ? filmInfo.seriesLength
-                                    : filmInfo.movieLength
+                                type === filmType.SERIALS
+                                    ? seriesLength
+                                    : movieLength
                             }
                         </div>
                     )
                 }
                 <div className={cls.nameDescription}>
-                    <h2 className={cls.name}>{ filmInfo.name || 'Нет имени' }</h2>
+                    <h2 className={cls.name}>{ name || 'Нет имени' }</h2>
                     <p className={cls.text}>
-                        { filmInfo.shortDescription || filmInfo.description || 'Нет краткого описания'}
+                        { shortDescription || description || 'Нет краткого описания'}
                     </p>
                 </div>
             </div>

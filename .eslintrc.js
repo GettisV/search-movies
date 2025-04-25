@@ -7,7 +7,7 @@ module.exports = {
     extends: [
         'plugin:react/recommended',
         'airbnb',
-        // 'plugin:storybook/recommended',
+    // 'plugin:storybook/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -17,11 +17,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: [
-        'react',
-        '@typescript-eslint',
-        'react-hooks',
-    ],
+    plugins: ['react', '@typescript-eslint', 'react-hooks'],
     rules: {
         'react/jsx-indent': [2, 4],
         'react/jsx-indent-props': [2, 4],
@@ -33,10 +29,7 @@ module.exports = {
         'import/no-unresolved': 'off',
         'import/prefer-default-export': 'off',
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': [
-            'warn',
-            { argsIgnorePattern: '^_' },
-        ],
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         'no-restricted-syntax': 'off',
         'react/require-default-props': 'off',
         'react/react-in-jsx-scope': 'off',
@@ -46,8 +39,11 @@ module.exports = {
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
-        'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
-        'max-len': ['error', { ignoreComments: true, code: 120 }],
+        'linebreak-style': [
+            'error',
+            process.platform === 'win32' ? 'windows' : 'unix',
+        ],
+        'max-len': ['error', { ignoreComments: true, code: 140 }],
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'error',
         'no-param-reassign': 'off',

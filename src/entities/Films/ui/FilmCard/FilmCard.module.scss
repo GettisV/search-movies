@@ -1,10 +1,11 @@
 .card{
+    display: block;
+    box-sizing: border-box;
     position: relative;
     cursor: pointer;
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
-    height: 400px;
 }
 
 .img{
@@ -15,15 +16,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
 }
 
 .info-film{
+    width: 100%;
+    height: 100%;
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     background-color: rgba($color: #000, $alpha: 80%);
     transition: opacity 0.3s ease-in;
 }
@@ -38,24 +40,40 @@
 }
 
 .name-description{
+    width:100%;
     position: absolute;
     bottom: 10px;
     left: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;    /* Число строк */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
 }
 
 .name{
-    max-width: 250px;
+    width:100%;
+    max-width: auto;
     font-size: 1.5rem;
     margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;    /* Число строк */
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: break-word;
 }
 
 .text{
+    width:100%;
     font-size: 0.9rem;
-    max-height: 90px;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;    /* Число строк */
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
 }
 
 .rating-div{
@@ -63,7 +81,6 @@
     top: 0;
     right: 0;
     display: flex;
-    width: auto;
     justify-content: end;
     align-items: center;
 }
@@ -73,17 +90,16 @@
     top: 0;
     left: 0;
     display: flex;
-    width: auto;
     justify-content: end;
     align-items: center;
 }
 
 .time{
-    width: 20px;
+    width: 1.1rem !important;
     margin-right: 5px;
 }
 
 .rating-star{
-    width: 20px;
+    width: 1.1rem !important;
     margin-right: 5px;
 }

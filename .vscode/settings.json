@@ -17,5 +17,16 @@
     "[scss]": {
         "editor.defaultFormatter": "stylelint.vscode-stylelint"
     },
-    "stylelint.validate": ["css", "scss", ".module.scss"]
+    "stylelint.validate": [
+        "css",
+        "scss",
+        ".module.scss"
+    ],
+    "editor.fontFamily": "JetBrains Mono Light",
+    "editor.fontSize": 16,
+    "files.autoSave": "onFocusChange",
+    "editor.tabSize": 4,
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    }
 }

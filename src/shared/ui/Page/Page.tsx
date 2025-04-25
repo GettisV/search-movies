@@ -12,8 +12,8 @@ type paramsPageType = {
 interface PageType{
     className?: string;
     children: ReactNode;
-    onScrollEnd: () => void;
-    paramsPage: paramsPageType;
+    onScrollEnd?: () => void;
+    paramsPage?: paramsPageType;
 }
 
 export const Page = memo((props: PageType) => {
@@ -31,7 +31,7 @@ export const Page = memo((props: PageType) => {
         wrapperRef,
         elementRef,
         callback: onScrollEnd,
-        infiniteScrollIsWork: paramsPage.infiniteScrollIsWork,
+        infiniteScrollIsWork: paramsPage?.infiniteScrollIsWork || false,
     });
 
     return (

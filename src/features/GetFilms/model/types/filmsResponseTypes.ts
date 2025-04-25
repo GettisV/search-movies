@@ -6,6 +6,8 @@ interface posterType{
     previewUrl: string,
 }
 
+interface backdropType extends posterType{}
+
 interface ratingType{
     kp: number,
     imdb: number,
@@ -21,6 +23,7 @@ export interface filmTypeResponseServer{
     shortDescription: string,
     year: number,
     poster: posterType,
+    backdrop: backdropType,
     genres: genresType[],
     countries: countriesType[],
     alternativeName: string,

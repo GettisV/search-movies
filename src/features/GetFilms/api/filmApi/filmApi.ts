@@ -71,24 +71,18 @@ export const filmApi = createApi({
             query: ({
                 filmType,
                 filmFilterGenre,
-            }) => {
-                const argsRequest = {
-                    url: 'movie',
-                    params: removeEmptyValuesInObject({
-                        limit: 10,
-                        sortField: filmSortSelectOptions.ratingBy,
-                        sortType: -1,
-                        type: filmType,
-                        notNullFields: 'poster.url',
-                        'genres.name': filmFilterGenre,
-                        'rating.imdb': '6-10',
-                        'votes.imdb': '40000-6666666',
-                        year: `${getFullYear() - 1}-${getFullYear()}`,
-                    }),
-                };
-
-                return argsRequest;
-            },
+            }) => ({
+                url: `movie?${new URLSearchParams(removeEmptyValuesInObject({
+                    limit: 10,
+                    sortField: filmSortSelectOptions.ratingBy,
+                    sortType: -1,
+                    type: filmType,
+                    'genres.name': filmFilterGenre,
+                    'rating.imdb': '6-10',
+                    'votes.imdb': '20000-6666666',
+                    year: `${getFullYear() - 1}-${getFullYear()}`,
+                })).toString()}&notNullFields=poster.url&notNullFields=backdrop.url`,
+            }),
         }),
     }),
 });
