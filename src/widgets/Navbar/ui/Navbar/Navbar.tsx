@@ -1,4 +1,4 @@
-import { childrenRouteConfig } from 'App/Providers/RouterProvider';
+import { childrenRouteConfig, RoutePath } from 'App/Providers/RouterProvider';
 import {
     filmActions,
     filmCountriesFilterSelectOptions,
@@ -13,6 +13,7 @@ import { memo, useCallback, useState } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
+import logo from 'shared/assets/logo.png';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 import cls from './Navbar.module.scss';
 
@@ -47,6 +48,9 @@ export const Navbar = memo(() => {
     return (
         <nav className={cls.navbar}>
             <div className={cls.applinks}>
+                <AppLink to={RoutePath.main} theme={AppLinkThemes.BOX_LINK}>
+                    <img className={cls.logo} src={logo} alt="logo" />
+                </AppLink>
                 {
                     childrenRouteConfig.map(
                         (route) => route.navbar && (

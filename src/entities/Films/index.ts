@@ -1,27 +1,18 @@
-export { filmSearchReducer, filmSearchActions } from './model/slices/filmSearchSlice';
 export {
-    getFilmsResponse,
-    getFilmsIsFetching,
-    getFilmsIsLoading,
-    getFilmsIsSuccess,
-    getPage,
-} from './model/selectors/filmSelectors';
-export {
-    getFilmsSearchResponse,
     getFilmsSearchIsFetching,
     getFilmsSearchIsLoading,
-    getFilmsSearchIsSuccess,
+    getFilmsSearchIsSuccess, getFilmsSearchResponse,
 } from './model/selectors/filmSearchSelectors';
-export { filmReducer, filmActions } from './model/slices/filmSlice';
+export {
+    getFilmsIsFetching,
+    getFilmsIsLoading,
+    getFilmsIsSuccess, getFilmsResponse, getPage,
+} from './model/selectors/filmSelectors';
+export { filmSearchActions, filmSearchReducer } from './model/slices/filmSearchSlice';
+export { filmActions, filmReducer } from './model/slices/filmSlice';
 export { filmSchema } from './model/types/film';
+export {
+    filmCountriesFilterSelectOptions, filmGenreFilterSelectOptions, filmReleaseFilterSelectOptions, filmSortSelectOptions, filmType,
+} from './model/types/filmFiltersTypes';
 export { FilmCard } from './ui/FilmCard/FilmCard';
 export { FilmsGrid } from './ui/FilmsGrid/FilmsGrid';
-export { FilmSelectFilterCountries } from './ui/FilmSelectFilterCountries/FilmSelectFilterCountries';
-export { FilmSelectFilterGenre } from './ui/FilmSelectFilterGenre/FilmSelectFilterGenre';
-export { FilmSelectFilterRelease } from './ui/FilmSelectFilterRelease/FilmSelectFilterRelease';
-export { filmCountriesFilterSelectOptions } from './model/types/filmFiltersTypes';
-export { filmGenreFilterSelectOptions } from './model/types/filmFiltersTypes';
-export { filmReleaseFilterSelectOptions } from './model/types/filmFiltersTypes';
-export { filmSortSelectOptions } from './model/types/filmFiltersTypes';
-export { filmType } from './model/types/filmFiltersTypes';
-export { FilmSelectSort } from './ui/FilmSelectSort/FilmSelectSort';

@@ -1,15 +1,16 @@
 import {
-    FilmSelectFilterCountries,
-    FilmSelectFilterGenre,
-    FilmSelectFilterRelease,
-    FilmSelectSort, filmActions, filmCountriesFilterSelectOptions,
+    filmActions, filmCountriesFilterSelectOptions,
     filmGenreFilterSelectOptions, filmSortSelectOptions,
     filmType,
     getPage,
 } from 'entities/Films';
 import { memo, useCallback, useEffect } from 'react';
+import {
+    countriesOptions, genresOptions, releaseOptions, sortOptions,
+} from 'shared/constants/selectOptions';
 import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { classNames } from 'shared/lib/classNames';
+import { Select } from 'shared/ui/Select/Select';
 import { filmApi, useGetFilmQuery } from '../../api/filmApi/filmApi';
 import {
     getFilmSelectCountryFilterValue,
@@ -91,21 +92,26 @@ export const FilmsFilters = memo((props: FilmFiltersType) => {
 
     return (
         <div className={classNames(cls.filmFilters, {}, [className])}>
-            <FilmSelectSort
+            <Select<filmSortSelectOptions>
+                className={cls.select}
+                value={filmSort}
                 onChange={onChangeSort}
-                filmSort={filmSort}
+                options={sortOptions}
             />
-            <FilmSelectFilterGenre
+            <Select<filmGenreFilterSelectOptions>
+                value={filmFilterGenre}
                 onChange={onChangeFilterGenre}
-                filmFilterGenre={filmFilterGenre}
+                options={genresOptions}
             />
-            <FilmSelectFilterCountries
+            <Select<filmCountriesFilterSelectOptions>
+                value={filmFilterCountry}
                 onChange={onChangeFilterCountries}
-                filmFilterCountry={filmFilterCountry}
+                options={countriesOptions}
             />
-            <FilmSelectFilterRelease
+            <Select<string>
+                value={filmFilterRelease}
                 onChange={onChangeFilterRelease}
-                filmFilterRelease={filmFilterRelease}
+                options={releaseOptions}
             />
         </div>
     );

@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     height: var(--navbar-height);
+    font-size:1.2rem
 }
 
 .applinks{
@@ -32,4 +33,8 @@ $search-button: 45px;
 
 .applinks>*:first-child{
     padding-left: 0;
+}
+
+.logo{
+    width:100px
 }

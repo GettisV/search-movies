@@ -15,7 +15,7 @@ export interface filmArg {
     filmFilterRelease: string,
 }
 
-export type filmHomeArg = Pick<filmArg, 'filmType' | 'filmFilterGenre'>
+export type filmHomeArg = Partial<Pick<filmArg, 'filmFilterGenre' | 'filmType'>>
 
 export interface filmSearchArg {
     searchText: string,

@@ -1,7 +1,7 @@
+import { filmType } from 'entities/Films/model/types/filmFiltersTypes';
+import { filmTypeResponseServer } from 'features/GetFilms';
 import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames';
-import { filmTypeResponseServer } from 'features/GetFilms';
-import { filmType } from 'entities/Films/model/types/filmFiltersTypes';
 import photoNoExistPng from '../../assets/photoNoExist.jpg';
 import ratingStarPng from '../../assets/ratingStar.png';
 import timePng from '../../assets/time.png';
@@ -11,6 +11,9 @@ interface FilmCardType{
     filmInfo: filmTypeResponseServer;
     urlPoster: filmTypeResponseServer['backdrop'];
     className?: string;
+    isCardOfMainSlider?: boolean,
+    isCardOfSlider?: boolean,
+    isCardOfGrid?: boolean,
 }
 
 export const FilmCard = memo((props: FilmCardType) => {
@@ -18,6 +21,9 @@ export const FilmCard = memo((props: FilmCardType) => {
         filmInfo,
         urlPoster,
         className,
+        isCardOfMainSlider = false,
+        isCardOfSlider = false,
+        isCardOfGrid = false,
     } = props;
 
     const {
@@ -33,7 +39,7 @@ export const FilmCard = memo((props: FilmCardType) => {
     const ratingKp = String(rating.kp).slice(0, 3);
     const ratingImdb = String(rating.kp).slice(0, 3);
 
-    function existPhoto() {
+    function existImage() {
         return urlPoster?.url ? (
             <img
                 className={cls.img}
@@ -51,10 +57,15 @@ export const FilmCard = memo((props: FilmCardType) => {
 
     return (
         <div className={classNames(cls.card, {}, [className])}>
-            { existPhoto() }
-            <div className={cls.infoFilm}>
+            {existImage()}
+            <div className={classNames(cls.infoFilm, {
+                [cls.cardMainSlider as string]: isCardOfMainSlider,
+                [cls.cardSlider as string]: isCardOfSlider,
+                [cls.cardGrid as string]: isCardOfGrid,
+            })}
+            >
                 {
-                    (ratingKp.trim() || ratingImdb.trim()) && (
+                    ((ratingKp.trim() || ratingImdb.trim())) && (
                         <div className={cls.ratingDiv}>
                             <img className={cls.ratingStar} src={ratingStarPng} alt={ratingStarPng} />
                             {ratingKp || ratingImdb}
@@ -62,7 +73,7 @@ export const FilmCard = memo((props: FilmCardType) => {
                     )
                 }
                 {
-                    (seriesLength || movieLength) && (
+                    ((seriesLength || movieLength)) && (
                         <div className={cls.timeDiv}>
                             <img className={cls.time} src={timePng} alt={timePng} />
                             {
