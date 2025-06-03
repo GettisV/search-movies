@@ -1,4 +1,4 @@
-import { childrenRouteConfig, RoutePath } from 'App/Providers/RouterProvider';
+import { childrenRouteConfig, RoutePath } from 'App/Providers/Router';
 import {
     filmActions,
     filmCountriesFilterSelectOptions,

@@ -1,4 +1,4 @@
-import { RoutePath } from 'App/Providers/RouterProvider';
+import { RoutePath } from 'App/Providers/Router';
 import { FilmCard, filmGenreFilterSelectOptions, filmType } from 'entities/Films';
 import { filmResponseServerType, filmTypeResponseServer, useGetFilmsHomePageQuery } from 'features/GetFilms';
 import { memo } from 'react';

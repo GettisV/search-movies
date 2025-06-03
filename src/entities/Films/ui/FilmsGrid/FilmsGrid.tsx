@@ -2,7 +2,7 @@ import { filmResponseServerType } from 'features/GetFilms';
 import { memo } from 'react';
 import { Grid } from 'shared/ui/Grid/Grid';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
-import { RoutePath } from 'App/Providers/RouterProvider';
+import { RoutePath } from 'App/Providers/Router';
 import { FilmCard } from '../../ui/FilmCard/FilmCard';
 import cls from './FilmsGrid.module.scss';
 
