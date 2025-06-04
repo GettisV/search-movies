@@ -87,4 +87,6 @@ export const filmApi = createApi({
     }),
 });
 
-export const { useGetFilmQuery, useGetFilmsHomePageQuery, useGetFilmsDetailsQuery } = filmApi;
+export const {
+    useGetFilmQuery, useGetFilmsHomePageQuery, useGetFilmsDetailsQuery,
+} = filmApi;

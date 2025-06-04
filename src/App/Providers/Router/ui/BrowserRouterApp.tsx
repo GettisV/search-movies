@@ -14,13 +14,16 @@ export function BrowserRouterApp() {
                 <Routes>
                     {
                         RouteConfig.map((route) => (
-                            <Route path={route.path} element={route.element}>
+                            <Route key={route.path} path={route.path} element={route.element}>
                                 {
-                                    route.children?.map((route) => {
-                                        const index = !!(route.index && route.index);
-
-                                        return <Route index={index} path={route.path} element={route.element} />;
-                                    })
+                                    route.children?.map((childRoute) => (
+                                        <Route
+                                            key={childRoute.path || 'idx'}
+                                            index={!!childRoute.index}
+                                            {...childRoute.path ? { path: childRoute.path } : {}}
+                                            element={childRoute.element}
+                                        />
+                                    ))
                                 }
                             </Route>
                         ))
