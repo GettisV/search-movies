@@ -38,26 +38,23 @@ export const FilmCard = memo((props: FilmCardType) => {
 
     const ratingKp = String(rating.kp).slice(0, 3);
     const ratingImdb = String(rating.kp).slice(0, 3);
-
-    function existImage() {
-        return urlPoster?.url ? (
-            <img
-                className={cls.img}
-                src={urlPoster?.url}
-                alt={urlPoster?.url}
-            />
-        ) : (
-            <img
-                className={cls.img}
-                src={photoNoExistPng}
-                alt={photoNoExistPng}
-            />
-        );
-    }
+    const image = urlPoster?.url ? (
+        <img
+            className={cls.img}
+            src={urlPoster?.url}
+            alt={urlPoster?.url}
+        />
+    ) : (
+        <img
+            className={cls.img}
+            src={photoNoExistPng}
+            alt={photoNoExistPng}
+        />
+    );
 
     return (
         <div className={classNames(cls.card, {}, [className])}>
-            {existImage()}
+            {image}
             <div className={classNames(cls.infoFilm, {
                 [cls.cardMainSlider as string]: isCardOfMainSlider,
                 [cls.cardSlider as string]: isCardOfSlider,
