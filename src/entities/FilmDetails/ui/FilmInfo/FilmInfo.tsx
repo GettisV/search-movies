@@ -38,10 +38,7 @@ export const FilmInfo = memo((props: FilmInfoType) => {
                     <p>
                         <span className={`${cls.bold} ${cls.header} ${cls.mr10}`}>Жанры:</span>
                         {
-                            film?.genres.map((genre, index) => {
-                                if ((index + 1) === film.genres.length) return genre.name || '';
-                                return (genre.name && `${genre.name}, `) || '';
-                            })
+                            film?.genres.map((item) => Object.values(item)[0]).join(', ')
                         }
                     </p>
                     <p>
@@ -57,10 +54,7 @@ export const FilmInfo = memo((props: FilmInfoType) => {
 
                     <p>
                         <span className={`${cls.bold} ${cls.header} ${cls.mr10}`}>Страна:</span>
-                        {film?.countries.map((country, index) => {
-                            if ((index + 1) === film.countries.length) return country.name || '';
-                            return (country.name && `${country.name}, `) || '';
-                        })}
+                        {film?.countries.map((item) => Object.values(item)[0]).join(', ')}
                     </p>
 
                     <div className={cls.containerDescription}>

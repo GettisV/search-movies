@@ -1,7 +1,10 @@
 import { RoutePath } from 'App/Providers/Router';
+import { store } from 'App/Providers/StoreProvider/config/store';
 import { FilmCard, filmGenreFilterSelectOptions, filmType } from 'entities/Films';
-import { filmResponseServerType, filmTypeResponseServer, useGetFilmsHomePageQuery } from 'features/GetFilms';
-import { memo } from 'react';
+import {
+    filmResponseServerType, filmTypeResponseServer, useGetFilmsHomePageQuery,
+} from 'features/GetFilms';
+import { memo, useMemo } from 'react';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
 import { Page } from 'shared/ui/Page/Page';
 import 'swiper/css';
