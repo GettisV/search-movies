@@ -71,7 +71,6 @@ export const FilmInfo = memo((props: FilmInfoType) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 });
