@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
 import {
     BrowserRouter,
-    Route,
-    Routes,
 } from 'react-router-dom';
 import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
 import { RouteConfig } from '../config/routeConfig';
