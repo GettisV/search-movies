@@ -22,7 +22,6 @@ export const RoutePath: Record<AppRoutes, string> = {
 export const childrenRouteConfig = [
     {
         index: true,
-        path: RoutePath.main,
         element: <HomePage />,
     },
     {
