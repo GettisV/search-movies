@@ -10,44 +10,44 @@ interface FilmLengthType{
 
 export const FilmLength = memo((props: FilmLengthType) => {
     const {
-        type,
+        type: filmTypeProp,
         seriesLength,
         movieLength,
     } = props;
 
-    return (
-        <p>
-            {
-                type === filmType.SERIALS
-                    ? (
-                        !!seriesLength
-                            && (
-                                <>
-                                    <span
-                                        className={`${cls.bold} ${cls.header} ${cls.mr10}`}
-                                    >
-                                        Время серии:
-                                    </span>
-                                    {' '}
-                                    {seriesLength}
-                                    {' '}
-                                    мин.
-                                </>
-                            )
-                    )
-                    : (
-                        !!movieLength
-                            && (
-                                <>
-                                    <span className={`${cls.bold} ${cls.header} ${cls.mr10}`}>Время:</span>
-                                    {' '}
-                                    {movieLength}
-                                    {' '}
-                                    мин.
-                                </>
-                            )
-                    )
-            }
-        </p>
-    );
+    const isNotEmptySeriesLength = !!seriesLength;
+    const isNotEmptyMovieLength = !!movieLength;
+
+    switch (filmTypeProp) {
+    case filmType.SERIALS: {
+        return (
+            isNotEmptySeriesLength && (
+                <>
+                    <span
+                        className={`${cls.bold} ${cls.header} ${cls.mr10}`}
+                    >
+                        Время серии:
+                    </span>
+                    {' '}
+                    {seriesLength}
+                    {' '}
+                    мин.
+                </>
+            )
+        );
+    }
+    default: {
+        return (
+            isNotEmptyMovieLength && (
+                <>
+                    <span className={`${cls.bold} ${cls.header} ${cls.mr10}`}>Время:</span>
+                    {' '}
+                    {movieLength}
+                    {' '}
+                    мин.
+                </>
+            )
+        );
+    }
+    }
 });
