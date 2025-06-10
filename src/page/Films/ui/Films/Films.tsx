@@ -1,12 +1,12 @@
 import {
-    filmActions,
     filmType,
-    getFilmsIsFetching,
-    getFilmsResponse,
-    getPage,
 } from 'entities/Films';
-import { memo, useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
+import {
+    FIELDS_SEARCH_PARAMS, useFilmQueryFromURL, useGetFilmQuery,
+} from 'features/GetFilms';
+import { memo, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { Page } from 'shared/ui/Page/Page';
 import { FilmsList } from 'widgets/FilmsList';
 
@@ -19,33 +19,50 @@ const Films = memo((props: FilmsProps) => {
         filmType,
     } = props;
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    useEffect(() => {
+        setSearchParams((prev) => {
+            const newParams = new URLSearchParams(prev);
+
+            newParams.set(FIELDS_SEARCH_PARAMS.type, filmType);
+
+            return newParams;
+        });
+    }, [filmType, setSearchParams]);
+
     const dispatch = useAppDispatch();
 
-    const data = useAppSelector(getFilmsResponse);
-    const dataIsExist = Boolean(data?.docs.length);
-
-    const page = useAppSelector(getPage);
-    const isFetching = useAppSelector(getFilmsIsFetching);
+    const queryArgs = useFilmQueryFromURL();
+    const { data, isFetching } = useGetFilmQuery(queryArgs);
+    const films = data?.docs || [];
+    const page = Number(searchParams.get(FIELDS_SEARCH_PARAMS.page));
+    const maxPages = data?.pages || 1;
 
     const paramsPage = {
-        infiniteScrollIsWork: dataIsExist,
+        infiniteScrollIsWork: true,
     };
 
     const onScrollEnd = useCallback(() => {
-        if (dataIsExist && !isFetching && (page <= data?.pages!)) {
-            dispatch(filmActions.setPage(page + 1));
+        if (films.length && !isFetching && (page <= maxPages!)) {
+            setSearchParams((prev) => {
+                const newParams = new URLSearchParams(prev);
+
+                newParams.set(FIELDS_SEARCH_PARAMS.page, String(page + 1));
+
+                return newParams;
+            });
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, isFetching, data]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, isFetching, films]);
 
     return (
         <Page
             paramsPage={paramsPage}
             onScrollEnd={onScrollEnd}
         >
-            <FilmsList
-                filmType={filmType}
-            />
+            <FilmsList />
         </Page>
     );
 });

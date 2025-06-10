@@ -1,5 +1,5 @@
 import { ReactNode, memo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 import { classNames } from 'shared/lib/classNames';
 import cls from './AppLink.module.scss';
 
@@ -8,7 +8,7 @@ export enum AppLinkThemes{
     BOX_LINK = 'boxLink',
 }
 
-interface AppLinkType{
+interface AppLinkType extends NavLinkProps {
     className?: string;
     to: string;
     children: ReactNode;
@@ -29,6 +29,7 @@ export const AppLink = memo((props: AppLinkType) => {
         hasActive,
         onClick,
         theme = AppLinkThemes.APP_LINK,
+        ...args
     } = props;
 
     const classNameAppLink = hasActive
@@ -47,6 +48,7 @@ export const AppLink = memo((props: AppLinkType) => {
             to={to}
             className={classNameAppLink}
             onClick={onClick}
+            {...args}
         >
             {children}
         </NavLink>

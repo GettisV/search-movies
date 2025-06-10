@@ -1,14 +1,9 @@
 import { ReducersMapObject, configureStore } from '@reduxjs/toolkit';
-import { filmReducer, filmSearchReducer } from 'entities/Films';
-import { filmsFiltersReducer, filmApi, filmSearchApi } from 'features/GetFilms';
+import { filmApi } from 'features/GetFilms';
 import { StateShema } from './StateSchema';
 
 const rootReducer: ReducersMapObject<StateShema> = {
-    films: filmReducer,
-    filmSearch: filmSearchReducer,
-    filmsFilters: filmsFiltersReducer,
     [filmApi.reducerPath]: filmApi.reducer,
-    [filmSearchApi.reducerPath]: filmSearchApi.reducer,
 };
 
 export const store = configureStore({
@@ -16,7 +11,6 @@ export const store = configureStore({
     middleware:
         (getDefaultMiddleware) => getDefaultMiddleware().concat(
             filmApi.middleware,
-            filmSearchApi.middleware,
         ),
 });
 

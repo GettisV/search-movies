@@ -1,4 +1,4 @@
-import { filmResponseServerType } from 'features/GetFilms';
+import { filmTypeResponseServer } from 'features/GetFilms';
 import { memo } from 'react';
 import { Grid } from 'shared/ui/Grid/Grid';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
@@ -7,7 +7,7 @@ import { FilmCard } from '../../ui/FilmCard/FilmCard';
 import cls from './FilmsGrid.module.scss';
 
 interface FilmsListProps{
-    films: filmResponseServerType | undefined,
+    films: filmTypeResponseServer[],
 }
 
 export const FilmsGrid = memo((props: FilmsListProps) => {
@@ -18,7 +18,7 @@ export const FilmsGrid = memo((props: FilmsListProps) => {
     return (
         <Grid className={cls.filmsGrid}>
             {
-                films?.docs?.map((film) => (
+                films?.map((film) => (
                     <AppLink
                         key={film.id}
                         to={RoutePath.film_details + film.id}

@@ -1,11 +1,4 @@
-import {
-    FilmsGrid,
-    filmSearchActions,
-    getFilmsSearchIsFetching,
-    getFilmsSearchIsSuccess,
-    getFilmsSearchResponse,
-} from 'entities/Films';
-import { FilmsSearchInput, getFilmSearchValue } from 'features/GetFilms';
+import { FilmsSearchInput } from 'features/GetFilms';
 import {
     KeyboardEvent, memo,
     useCallback,
@@ -14,9 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { cancelEventBubbling } from 'shared/lib/cancelEventBubbling';
 import { classNames } from 'shared/lib/classNames';
-import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
 import { Portal } from 'shared/ui/Portal/Portal';
-import { Container } from 'widgets/Container';
 import cls from './FilmsSearchModalWindow.module.scss';
 
 interface FilmsSearchModalWindowType{
@@ -41,10 +32,10 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
     };
 
     const dispatch = useAppDispatch();
-    const data = useAppSelector(getFilmsSearchResponse);
-    const searchInput = useAppSelector(getFilmSearchValue);
-    const isFetching = useAppSelector(getFilmsSearchIsFetching);
-    const isSuccess = useAppSelector(getFilmsSearchIsSuccess);
+    // const data = useAppSelector(getFilmsSearchResponse);
+    // const searchInput = useAppSelector(getFilmSearchValue);
+    // const isFetching = useAppSelector(getFilmsSearchIsFetching);
+    // const isSuccess = useAppSelector(getFilmsSearchIsSuccess);
 
     useEffect(() => {
         if (stateModal) {
@@ -55,31 +46,31 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
     }, [stateModal]);
 
     const closeModalHandler = useCallback(() => {
-        dispatch(filmSearchActions.setIsSuccess(false));
+        // dispatch(filmSearchActions.setIsSuccess(false));
         closeModal?.();
-    }, [closeModal, dispatch]);
+    }, [closeModal]);
 
     const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Escape') closeModal?.();
     }, [closeModal]);
 
-    function getFilmsGrid() {
-        if (
-            !Boolean(data?.docs?.length)
-            && !isFetching
-            && isSuccess
-        ) {
-            return <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>;
-        }
+    // function getFilmsGrid() {
+    //     if (
+    //         !Boolean(data?.docs?.length)
+    //         && !isFetching
+    //         && isSuccess
+    //     ) {
+    //         return <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>;
+    //     }
 
-        return searchInput
-            ? (
-                <Container>
-                    <FilmsGrid films={data} />
-                </Container>
-            )
-            : <div />;
-    }
+    //     return searchInput
+    //         ? (
+    //             <Container>
+    //                 <FilmsGrid films={data} />
+    //             </Container>
+    //         )
+    //         : <div />;
+    // }
 
     return (
         <Portal domElement={document.body}>
@@ -106,11 +97,11 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                         X
                     </button>
                 </div>
-                {
+                {/* {
                     isFetching
                         ? <LoaderPage />
                         : getFilmsGrid()
-                }
+                } */}
             </div>
         </Portal>
     );

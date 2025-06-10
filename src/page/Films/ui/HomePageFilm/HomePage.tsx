@@ -12,21 +12,21 @@ import styles from './HomePage.module.scss';
 import './HomePageStyleSwiper.css';
 
 const HomePage = memo(() => {
-    const { data: mainDataSlider } = useGetFilmsHomePageQuery({
-        filmType: filmType.FILMS,
-    });
+    // const { data: mainDataSlider } = useGetFilmsHomePageQuery({
+    //     filmType: filmType.FILMS,
+    // });
 
-    const { data: detectiveDataSlider } = useGetFilmsHomePageQuery({
-        filmFilterGenre: filmGenreFilterSelectOptions.detective,
-    });
+    // const { data: detectiveDataSlider } = useGetFilmsHomePageQuery({
+    //     filmFilterGenre: filmGenreFilterSelectOptions.detective,
+    // });
 
-    const { data: historyDataSlider } = useGetFilmsHomePageQuery({
-        filmFilterGenre: filmGenreFilterSelectOptions.history,
-    });
+    // const { data: historyDataSlider } = useGetFilmsHomePageQuery({
+    //     filmFilterGenre: filmGenreFilterSelectOptions.history,
+    // });
 
-    const { data: horrorDataSlider } = useGetFilmsHomePageQuery({
-        filmFilterGenre: filmGenreFilterSelectOptions.horror,
-    });
+    // const { data: horrorDataSlider } = useGetFilmsHomePageQuery({
+    //     filmFilterGenre: filmGenreFilterSelectOptions.horror,
+    // });
 
     interface IOptionsSlides{
         hasPoster: boolean,
@@ -56,7 +56,7 @@ const HomePage = memo(() => {
 
     return (
         <Page className={styles.page}>
-            <Swiper
+            {/* <Swiper
                 modules={[Navigation]}
                 spaceBetween={30}
                 slidesPerView={1}
@@ -95,7 +95,8 @@ const HomePage = memo(() => {
                 loop
             >
                 { Slides(styles.card || '', { isCardOfSlider: true, hasPoster: true }, horrorDataSlider) }
-            </Swiper>
+            </Swiper> */}
+            <div>12</div>
         </Page>
     );
 });

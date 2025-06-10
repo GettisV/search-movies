@@ -1,42 +1,34 @@
 import {
     FilmsGrid,
-    filmType,
-    getFilmsResponse,
-    getFilmsIsFetching,
-    getFilmsIsSuccess,
 } from 'entities/Films';
 import {
-    FilmsFilters,
+    FilmsFilters, useFilmQueryFromURL,
+    useGetFilmQuery,
 } from 'features/GetFilms';
 import { memo } from 'react';
-import { useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { classNames } from 'shared/lib/classNames';
 import Loader from 'shared/ui/Loader/Loader';
 import cls from './FilmsList.module.scss';
 
-interface FilmsListType{
-    filmType: filmType,
+interface FilmsListType {
     className?: string,
 }
 
 export const FilmsList = memo((props: FilmsListType) => {
     const {
-        filmType,
         className,
     } = props;
 
-    const data = useAppSelector(getFilmsResponse);
-    const isFetching = useAppSelector(getFilmsIsFetching);
-    const isSuccess = useAppSelector(getFilmsIsSuccess);
+    const queryArgs = useFilmQueryFromURL();
+    const { data, isFetching, isSuccess } = useGetFilmQuery(queryArgs);
+    const films = data?.docs || [];
 
     return (
         <section
             className={classNames('', {}, [className])}
         >
-            <FilmsFilters
-                filmType={filmType}
-            />
-            <FilmsGrid films={data} />
+            <FilmsFilters />
+            <FilmsGrid films={films} />
             {
                 !Boolean(data?.docs?.length)
                 && !isFetching

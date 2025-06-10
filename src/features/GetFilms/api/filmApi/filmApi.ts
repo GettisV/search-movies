@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { filmSortSelectOptions } from 'entities/Films';
 import { API_KEY } from 'shared/constants/API_KEY';
 import { findDuplicates } from 'shared/lib/findDuplicates';
-import getFullYear from 'shared/lib/getFullYear';
+import getFullYear from 'shared/lib/getCurrentYear';
 import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
 import { filmDetailsResponseServerType } from '../../model/types/filmDetailsResponseServerType';
 import { filmDetailsArg } from '../../model/types/filmDetailsTypes';
@@ -14,45 +14,22 @@ import {
 export const filmApi = createApi({
     reducerPath: 'filmApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api.kinopoisk.dev/v1.4',
+        baseUrl: '',
+        // baseUrl: 'https://api.kinopoisk.dev/v1.4',
         prepareHeaders: (header) => {
             header.set('X-API-KEY', API_KEY);
         },
     }),
     endpoints: (build) => ({
         getFilm: build.query<filmResponseServerType, filmArg>({
-            query: ({
-                limit,
-                page,
-                filmType,
-                filmSort,
-                filmFilterGenre,
-                filmFilterCountry,
-                filmFilterRelease,
-            }) => {
-                const argsRequest = {
-                    url: 'movie',
-                    params: removeEmptyValuesInObject({
-                        limit,
-                        page,
-                        sortField: filmSort,
-                        sortType: -1,
-                        type: filmType,
-                        notNullFields: 'poster.url',
-                        'genres.name': filmFilterGenre,
-                        'countries.name': filmFilterCountry,
-                        'rating.kp': '5-10',
-                        'votes.kp': '15000-6666666',
-                        year: filmFilterRelease,
-                    }),
-                };
-
-                return argsRequest;
-            },
+            query: (params) => ({
+                url: 'movie',
+                params,
+            }),
             serializeQueryArgs: ({ endpointName }) => endpointName,
             merge: (currentCache, newItems, { arg }) => {
                 if (
-                    currentCache.docs[0]?.type === arg.filmType
+                    currentCache.docs[0]?.type === arg.type
                     && !findDuplicates(currentCache.docs, newItems.docs)
                 ) {
                     currentCache.docs.push(...newItems.docs);
@@ -68,20 +45,9 @@ export const filmApi = createApi({
             }),
         }),
         getFilmsHomePage: build.query<filmResponseServerType, filmHomeArg>({
-            query: ({
-                filmType,
-                filmFilterGenre,
-            }) => ({
-                url: `movie?${new URLSearchParams(removeEmptyValuesInObject({
-                    limit: 10,
-                    sortField: filmSortSelectOptions.ratingBy,
-                    sortType: -1,
-                    type: filmType,
-                    'genres.name': filmFilterGenre,
-                    'rating.kp': '5-10',
-                    'votes.kp': '13000-6666666',
-                    year: `${getFullYear() - 1}-${getFullYear()}`,
-                })).toString()}&notNullFields=poster.url&notNullFields=backdrop.url`,
+            query: (params) => ({
+                url: 'movie',
+                params,
             }),
         }),
     }),
