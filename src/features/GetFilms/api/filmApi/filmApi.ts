@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { filmSortSelectOptions } from 'entities/Films';
 import { API_KEY } from 'shared/constants/API_KEY';
 import { findDuplicates } from 'shared/lib/findDuplicates';
-import getFullYear from 'shared/lib/getCurrentYear';
-import { removeEmptyValuesInObject } from 'shared/lib/removeEmptyValuesInObject';
 import { filmDetailsResponseServerType } from '../../model/types/filmDetailsResponseServerType';
 import { filmDetailsArg } from '../../model/types/filmDetailsTypes';
 import { filmResponseServerType } from '../../model/types/filmsResponseTypes';
@@ -53,4 +50,6 @@ export const filmApi = createApi({
     }),
 });
 
-export const { useGetFilmQuery, useGetFilmsHomePageQuery, useGetFilmsDetailsQuery } = filmApi;
+export const {
+    useGetFilmQuery, useGetFilmsHomePageQuery, useGetFilmsDetailsQuery,
+} = filmApi;
