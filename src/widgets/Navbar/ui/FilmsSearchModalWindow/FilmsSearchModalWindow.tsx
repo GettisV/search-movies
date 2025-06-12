@@ -1,28 +1,37 @@
-import { FilmsSearchInput } from 'features/GetFilms';
+import {
+    filmResponseServerType, FilmsSearchInput,
+} from 'features/GetFilms';
 import {
     KeyboardEvent, memo,
     useCallback,
     useEffect,
 } from 'react';
-import { useAppDispatch, useAppSelector } from 'shared/hooks/storeHooks/storeHooks';
 import { cancelEventBubbling } from 'shared/lib/cancelEventBubbling';
 import { classNames } from 'shared/lib/classNames';
 import { Portal } from 'shared/ui/Portal/Portal';
+import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
 import cls from './FilmsSearchModalWindow.module.scss';
+import { FilmsSearchModalGrid } from '../FilmsSearchModalGrid/FilmsSearchModalGrid';
 
 interface FilmsSearchModalWindowType{
+    data: filmResponseServerType;
+    isLoading: boolean;
     className?: string;
     stateModal: boolean;
     closeModal?: () => void;
-    onChangeInput?: (value:string) => void
+    filmSearchInput: string;
+    onChangeFilmSearchInput?: (...args:any[]) => void
 }
 
 export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) => {
     const {
+        data,
+        isLoading,
         className,
         stateModal,
         closeModal,
-        onChangeInput,
+        filmSearchInput,
+        onChangeFilmSearchInput,
     } = props;
 
     type Mods = Record<string, boolean>
@@ -31,11 +40,17 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
         [cls.show!]: stateModal,
     };
 
-    const dispatch = useAppDispatch();
-    // const data = useAppSelector(getFilmsSearchResponse);
-    // const searchInput = useAppSelector(getFilmSearchValue);
-    // const isFetching = useAppSelector(getFilmsSearchIsFetching);
-    // const isSuccess = useAppSelector(getFilmsSearchIsSuccess);
+    const closeModalHandler = useCallback(() => {
+        closeModal?.();
+    }, [closeModal]);
+
+    const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Escape') closeModal?.();
+    }, [closeModal]);
+
+    const loader = isLoading && <LoaderPage />;
+    const hasData = data?.docs && (data.docs.length > 0);
+    const showFilmsNotFound = !isLoading && !hasData && filmSearchInput;
 
     useEffect(() => {
         if (stateModal) {
@@ -45,32 +60,7 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
         }
     }, [stateModal]);
 
-    const closeModalHandler = useCallback(() => {
-        // dispatch(filmSearchActions.setIsSuccess(false));
-        closeModal?.();
-    }, [closeModal]);
-
-    const onKeyDownHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === 'Escape') closeModal?.();
-    }, [closeModal]);
-
-    // function getFilmsGrid() {
-    //     if (
-    //         !Boolean(data?.docs?.length)
-    //         && !isFetching
-    //         && isSuccess
-    //     ) {
-    //         return <div className={cls.filmsNotFound}>Фильмы не найдены :(</div>;
-    //     }
-
-    //     return searchInput
-    //         ? (
-    //             <Container>
-    //                 <FilmsGrid films={data} />
-    //             </Container>
-    //         )
-    //         : <div />;
-    // }
+    console.log(data);
 
     return (
         <Portal domElement={document.body}>
@@ -87,7 +77,8 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                 >
                     <FilmsSearchInput
                         className={cls.inputSearch}
-                        onChangeInput={onChangeInput}
+                        filmSearchInput={filmSearchInput}
+                        onChangeFilmSearchInput={onChangeFilmSearchInput}
                     />
                     <button
                         className={cls.modalClose}
@@ -97,11 +88,9 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                         X
                     </button>
                 </div>
-                {/* {
-                    isFetching
-                        ? <LoaderPage />
-                        : getFilmsGrid()
-                } */}
+                { loader }
+                { !isLoading && hasData && <FilmsSearchModalGrid films={data} /> }
+                { showFilmsNotFound && <div className={cls.filmsNotFound}>Фильмы не найдены :(</div> }
             </div>
         </Portal>
     );

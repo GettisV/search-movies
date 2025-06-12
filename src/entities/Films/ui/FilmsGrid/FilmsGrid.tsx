@@ -23,6 +23,7 @@ export const FilmsGrid = memo((props: FilmsListProps) => {
                         key={film.id}
                         to={RoutePath.film_details + film.id}
                         theme={AppLinkThemes.BOX_LINK}
+                        state={film}
                     >
                         <FilmCard
                             urlPoster={film.poster}

@@ -1,7 +1,6 @@
 export {
-    filmApi, useGetFilmQuery, useGetFilmsDetailsQuery, useGetFilmsHomePageQuery,
+    filmApi, useGetFilmQuery, useGetFilmsHomePageQuery, useLazyGetSearchQuery,
 } from './api/filmApi/filmApi';
-export { filmDetailsResponseServerType, ratingType } from './model/types/filmDetailsResponseServerType';
 
 export { filmArg, filmFiltersSchema, filmSearchArg } from './model/types/filmsTypes';
 
@@ -10,6 +9,7 @@ export { useFilmQueryFromURL } from './model/hooks/useFilmQueryFromURL/useFilmQu
 export {
     filmResponseServerType,
     filmTypeResponseServer,
+    ratingType,
 } from './model/types/filmsResponseTypes';
 
 export { FilmsFilters } from './ui/FilmsFilters/FilmsFilters';

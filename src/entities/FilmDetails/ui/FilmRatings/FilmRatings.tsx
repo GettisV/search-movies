@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { ratingType } from 'features/GetFilms';
 import cls from './FilmRatings.module.scss';
 

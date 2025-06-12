@@ -1,9 +1,8 @@
-import { memo } from 'react';
-import { classNames } from 'shared/lib/classNames';
-import { useParams } from 'react-router-dom';
 import { FilmInfo } from 'entities/FilmDetails';
-import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
-import { useGetFilmsDetailsQuery } from 'features/GetFilms';
+import { filmTypeResponseServer } from 'features/GetFilms';
+import { memo } from 'react';
+import { Location, useLocation } from 'react-router-dom';
+import { classNames } from 'shared/lib/classNames';
 
 interface FilmDetailsPageType{
     className?: string;
@@ -14,15 +13,11 @@ const FilmDetailsPage = memo((props: FilmDetailsPageType) => {
         className,
     } = props;
 
-    // const { id } = useParams();
-    // const { data, isFetching } = useGetFilmsDetailsQuery({ id });
-
-    // if (isFetching) return <LoaderPage />;
+    const data: Location<filmTypeResponseServer> = useLocation();
 
     return (
         <div className={classNames('', {}, [className])}>
-            {/* <FilmInfo film={data} /> */}
-            <div>123</div>
+            <FilmInfo film={data.state} />
         </div>
     );
 });

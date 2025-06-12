@@ -1,44 +1,48 @@
 import { childrenRouteConfig, RoutePath } from 'App/Providers/Router';
-import { filmApi } from 'features/GetFilms/api/filmApi/filmApi';
+import { filmApi, useLazyGetSearchQuery } from 'features/GetFilms/api/filmApi/filmApi';
 import { memo, useCallback, useState } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import logo from 'shared/assets/logo.png';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
-import { useSearchParams } from 'react-router-dom';
-import { FIELDS_SEARCH_PARAMS } from 'features/GetFilms';
+import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import cls from './Navbar.module.scss';
+import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 
 export const Navbar = memo(() => {
     const [stateModal, setStateModal] = useState<boolean>(false);
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useAppDispatch();
+    const [trigger, { data, isLoading }] = useLazyGetSearchQuery();
+    const [filmSearchInput, setFilmSearchInput] = useState<string>('');
+    const LIMIT = 10;
 
-    // const closeModalHandler = useCallback(() => {
-    //     dispatch(filmSearchApi.util.resetApiState());
-    //     dispatch(filmsFiltersActions.searchFilm(''));
-    //     setStateModal(false);
-    // }, [dispatch]);
+    const closeModalHandler = useCallback(() => {
+        // dispatch(filmApi.util.resetApiState());
+        setStateModal(false);
+        setFilmSearchInput('');
+    }, []);
 
     const showModalHandler = useCallback(() => {
         setStateModal(true);
     }, []);
 
-    // const searchInputChange = useCallback((value: string) => {
-    //     dispatch(filmsFiltersActions.searchFilm(value));
-    // }, [dispatch]);
+    const debouncedOnChangeFilmSearchInput = useDebounce((value) => trigger({
+        query: value,
+        limit: LIMIT,
+    }), 500);
+
+    const onChangeFilmSearchInput = useCallback((value: string) => {
+        setFilmSearchInput(value);
+
+        if (value) {
+            debouncedOnChangeFilmSearchInput(value);
+        }
+    }, [debouncedOnChangeFilmSearchInput]);
 
     const onClickHandler = useCallback(() => {
         dispatch(filmApi.util.resetApiState());
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-
-            newParams.set(FIELDS_SEARCH_PARAMS.page, '1');
-
-            return newParams;
-        });
-    }, [dispatch, setSearchParams]);
+    }, [dispatch]);
 
     return (
         <nav className={cls.navbar}>
@@ -51,7 +55,7 @@ export const Navbar = memo(() => {
                         (route) => route.navbar && (
                             <AppLink
                                 to={route.path || ''}
-                                key={route.path}
+                                key={route.path || `key${Math.random() * 1e6}`}
                                 onClick={onClickHandler}
                                 theme={AppLinkThemes.APP_LINK}
                                 hasActive
@@ -66,16 +70,19 @@ export const Navbar = memo(() => {
                 type="button"
                 aria-label="search"
                 className={cls.searchButton}
-                // onClick={showModalHandler}
+                onClick={showModalHandler}
             >
                 <SearchIcon className={cls.searchImg} />
             </button>
 
-            {/* <FilmsSearchModalWindow
+            <FilmsSearchModalWindow
+                data={data}
+                isLoading={isLoading}
                 stateModal={stateModal}
                 closeModal={closeModalHandler}
-                onChangeInput={searchInputChange}
-            /> */}
+                filmSearchInput={filmSearchInput}
+                onChangeFilmSearchInput={onChangeFilmSearchInput}
+            />
         </nav>
     );
 });

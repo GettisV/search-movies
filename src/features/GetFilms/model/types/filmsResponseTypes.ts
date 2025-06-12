@@ -6,9 +6,14 @@ interface posterType{
     previewUrl: string,
 }
 
+interface persons{
+    name: string;
+    photo: string;
+}
+
 interface backdropType extends posterType{}
 
-interface ratingType{
+export interface ratingType{
     kp: number,
     imdb: number,
 }
@@ -29,6 +34,7 @@ export interface filmTypeResponseServer{
     alternativeName: string,
     ageRating: number,
     seriesLength: number,
+    persons: persons[],
 }
 
 export interface filmResponseServerType{

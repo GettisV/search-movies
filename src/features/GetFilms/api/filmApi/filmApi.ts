@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_KEY } from 'shared/constants/API_KEY';
 import { findDuplicates } from 'shared/lib/findDuplicates';
-import { filmDetailsResponseServerType } from '../../model/types/filmDetailsResponseServerType';
-import { filmDetailsArg } from '../../model/types/filmDetailsTypes';
 import { filmResponseServerType } from '../../model/types/filmsResponseTypes';
 import {
     filmArg, filmHomeArg,
@@ -36,9 +34,10 @@ export const filmApi = createApi({
                 return currentArg !== previousArg;
             },
         }),
-        getFilmsDetails: build.query<filmDetailsResponseServerType, filmDetailsArg>({
-            query: ({ id }) => ({
-                url: `movie/${id && id}`,
+        getSearch: build.query({
+            query: (params) => ({
+                url: 'movie/search',
+                params,
             }),
         }),
         getFilmsHomePage: build.query<filmResponseServerType, filmHomeArg>({
@@ -51,5 +50,5 @@ export const filmApi = createApi({
 });
 
 export const {
-    useGetFilmQuery, useGetFilmsHomePageQuery, useGetFilmsDetailsQuery,
+    useGetFilmQuery, useGetFilmsHomePageQuery, useLazyGetSearchQuery,
 } = filmApi;

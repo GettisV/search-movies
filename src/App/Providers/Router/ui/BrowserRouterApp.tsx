@@ -14,12 +14,23 @@ export function BrowserRouterApp() {
                 <Routes>
                     {
                         RouteConfig.map((route) => (
-                            <Route path={route.path} element={route.element}>
+                            <Route
+                                path={route.path}
+                                key={route.path || `key${Math.random() * 1e6}`}
+                                element={route.element}
+                            >
                                 {
                                     route.children?.map((route) => {
                                         const index = !!(route.index && route.index);
 
-                                        return <Route index={index} path={route.path} element={route.element} />;
+                                        return (
+                                            <Route
+                                                index={index}
+                                                key={route.path || `key${Math.random() * 1e6}`}
+                                                path={route.path}
+                                                element={route.element}
+                                            />
+                                        );
                                     })
                                 }
                             </Route>

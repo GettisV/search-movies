@@ -1,5 +1,5 @@
 import {
-    filmCountriesFilterSelectOptions, filmGenreFilterSelectOptions, filmReleaseFilterSelectOptions, filmSortSelectOptions, filmType,
+    filmCountriesFilterSelectOptions, filmGenreFilterSelectOptions, filmSortSelectOptions, filmType,
 } from 'entities/Films';
 
 export enum DEFAULT_VALUES_SEARCH_PARAMS {
