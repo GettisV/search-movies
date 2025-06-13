@@ -46,7 +46,7 @@ const Films = memo((props: FilmsProps) => {
         if (currentUrlType !== filmType) {
             dispatch(filmApi.util.resetApiState());
 
-            setSearchParams((prev) => clbSearchParams(''ф, [
+            setSearchParams((prev) => clbSearchParams('', [
                 { field: FIELDS_SEARCH_PARAMS.type, value: filmType },
                 { field: FIELDS_SEARCH_PARAMS.page, value: DEFAULT_VALUES_SEARCH_PARAMS.page.toString() },
             ]), { replace: true });
