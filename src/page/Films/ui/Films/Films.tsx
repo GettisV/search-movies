@@ -6,6 +6,8 @@ import {
     useFilmQueryFromURL,
     useGetFilmQuery,
     filmApi,
+    DEFAULT_VALUES_SEARCH_PARAMS,
+    clbSearchParams,
 } from 'features/GetFilms';
 import {
     memo, useCallback, useEffect,
@@ -44,26 +46,18 @@ const Films = memo((props: FilmsProps) => {
         if (currentUrlType !== filmType) {
             dispatch(filmApi.util.resetApiState());
 
-            setSearchParams((prev) => {
-                const newParams = new URLSearchParams(prev);
-
-                newParams.set(FIELDS_SEARCH_PARAMS.type, filmType);
-                newParams.set(FIELDS_SEARCH_PARAMS.page, '1');
-
-                return newParams;
-            }, { replace: true });
+            setSearchParams((prev) => clbSearchParams(''ф, [
+                { field: FIELDS_SEARCH_PARAMS.type, value: filmType },
+                { field: FIELDS_SEARCH_PARAMS.page, value: DEFAULT_VALUES_SEARCH_PARAMS.page.toString() },
+            ]), { replace: true });
         }
     }, [filmType, currentUrlType, setSearchParams, dispatch]);
 
     const onScrollEnd = useCallback(() => {
         if (films.length && !isFetching && (page <= maxPages)) {
-            setSearchParams((prev) => {
-                const newParams = new URLSearchParams(prev);
-
-                newParams.set(FIELDS_SEARCH_PARAMS.page, String(page + 1));
-
-                return newParams;
-            });
+            setSearchParams((prev) => clbSearchParams(prev, [
+                { field: FIELDS_SEARCH_PARAMS.page, value: String(page + 1) },
+            ]), { replace: true });
         }
     }, [page, maxPages, films.length, isFetching, setSearchParams]);
 

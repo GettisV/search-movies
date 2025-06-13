@@ -2,7 +2,7 @@ import {
     filmCountriesFilterSelectOptions,
     filmGenreFilterSelectOptions, filmSortSelectOptions,
 } from 'entities/Films';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
     countriesOptions, genresOptions, releaseOptions, sortOptions,
@@ -10,7 +10,8 @@ import {
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { classNames } from 'shared/lib/classNames';
 import { Select } from 'shared/ui/Select/Select';
-import { FIELDS_SEARCH_PARAMS } from 'features/GetFilms/consts/VALUES_FIELDS_SEARCH_PARAMS';
+import { DEFAULT_VALUES_SEARCH_PARAMS, FIELDS_SEARCH_PARAMS } from 'features/GetFilms/consts/VALUES_FIELDS_SEARCH_PARAMS';
+import { clbSearchParams } from 'features/GetFilms/lib/clbSearchParams';
 import { filmApi } from '../../api/filmApi/filmApi';
 import cls from './FilmsFilters.module.scss';
 
@@ -26,60 +27,37 @@ export const FilmsFilters = memo((props: FilmFiltersType) => {
 
     const dispatch = useAppDispatch();
 
-    const resetFilmsStore = useCallback(() => {
+    const onChangeSort = useCallback((value: filmSortSelectOptions) => {
         dispatch(filmApi.util.resetApiState());
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-
-            newParams.set(FIELDS_SEARCH_PARAMS.page, '1');
-
-            return newParams;
-        });
+        setSearchParams((prev) => clbSearchParams(prev, [
+            { field: FIELDS_SEARCH_PARAMS.page, value: DEFAULT_VALUES_SEARCH_PARAMS.page.toString() },
+            { field: FIELDS_SEARCH_PARAMS.sortType, value },
+        ]));
     }, [dispatch, setSearchParams]);
 
-    const onChangeSort = useCallback((value: filmSortSelectOptions) => {
-        resetFilmsStore();
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-
-            newParams.set(FIELDS_SEARCH_PARAMS.sortType, value);
-
-            return newParams;
-        });
-    }, [resetFilmsStore, setSearchParams]);
-
     const onChangeFilterGenre = useCallback((value: filmGenreFilterSelectOptions) => {
-        resetFilmsStore();
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-
-            newParams.set(FIELDS_SEARCH_PARAMS.genres, value);
-
-            return newParams;
-        });
-    }, [resetFilmsStore, setSearchParams]);
+        dispatch(filmApi.util.resetApiState());
+        setSearchParams((prev) => clbSearchParams(prev, [
+            { field: FIELDS_SEARCH_PARAMS.page, value: DEFAULT_VALUES_SEARCH_PARAMS.page.toString() },
+            { field: FIELDS_SEARCH_PARAMS.genres, value },
+        ]));
+    }, [dispatch, setSearchParams]);
 
     const onChangeFilterCountries = useCallback((value: filmCountriesFilterSelectOptions) => {
-        resetFilmsStore();
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-
-            newParams.set(FIELDS_SEARCH_PARAMS.countries, value);
-
-            return newParams;
-        });
-    }, [resetFilmsStore, setSearchParams]);
+        dispatch(filmApi.util.resetApiState());
+        setSearchParams((prev) => clbSearchParams(prev, [
+            { field: FIELDS_SEARCH_PARAMS.page, value: DEFAULT_VALUES_SEARCH_PARAMS.page.toString() },
+            { field: FIELDS_SEARCH_PARAMS.countries, value },
+        ]));
+    }, [dispatch, setSearchParams]);
 
     const onChangeFilterRelease = useCallback((value: string) => {
-        resetFilmsStore();
-        setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-
-            newParams.set(FIELDS_SEARCH_PARAMS.year, value);
-
-            return newParams;
-        });
-    }, [resetFilmsStore, setSearchParams]);
+        dispatch(filmApi.util.resetApiState());
+        setSearchParams((prev) => clbSearchParams(prev, [
+            { field: FIELDS_SEARCH_PARAMS.page, value: DEFAULT_VALUES_SEARCH_PARAMS.page.toString() },
+            { field: FIELDS_SEARCH_PARAMS.year, value },
+        ]));
+    }, [dispatch, setSearchParams]);
 
     return (
         <div className={classNames(cls.filmFilters, {}, [className])}>

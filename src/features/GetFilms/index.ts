@@ -1,3 +1,5 @@
+export { clbSearchParams } from './lib/clbSearchParams';
+
 export {
     filmApi, useGetFilmQuery, useGetFilmsHomePageQuery, useLazyGetSearchQuery,
 } from './api/filmApi/filmApi';
