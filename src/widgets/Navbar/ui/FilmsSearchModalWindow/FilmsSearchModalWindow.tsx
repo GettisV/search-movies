@@ -15,7 +15,8 @@ import { FilmsSearchModalGrid } from '../FilmsSearchModalGrid/FilmsSearchModalGr
 
 interface FilmsSearchModalWindowType{
     data: filmResponseServerType;
-    isLoading: boolean;
+    isFetching: boolean;
+    isSuccess: boolean;
     className?: string;
     stateModal: boolean;
     closeModal?: () => void;
@@ -26,7 +27,8 @@ interface FilmsSearchModalWindowType{
 export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) => {
     const {
         data,
-        isLoading,
+        isFetching,
+        isSuccess,
         className,
         stateModal,
         closeModal,
@@ -48,9 +50,9 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
         if (e.key === 'Escape') closeModal?.();
     }, [closeModal]);
 
-    const loader = isLoading && <LoaderPage />;
+    const loader = isFetching && <LoaderPage />;
     const hasData = data?.docs && (data.docs.length > 0);
-    const showFilmsNotFound = !isLoading && !hasData && filmSearchInput;
+    const showFilmsNotFound = isSuccess && !hasData && filmSearchInput;
 
     useEffect(() => {
         if (stateModal) {
@@ -59,8 +61,6 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
             document.body.style.overflow = 'auto';
         }
     }, [stateModal]);
-
-    console.log(data);
 
     return (
         <Portal domElement={document.body}>
@@ -89,7 +89,7 @@ export const FilmsSearchModalWindow = memo((props: FilmsSearchModalWindowType) =
                     </button>
                 </div>
                 { loader }
-                { !isLoading && hasData && <FilmsSearchModalGrid films={data} /> }
+                { !isFetching && hasData && <FilmsSearchModalGrid films={data} /> }
                 { showFilmsNotFound && <div className={cls.filmsNotFound}>Фильмы не найдены :(</div> }
             </div>
         </Portal>

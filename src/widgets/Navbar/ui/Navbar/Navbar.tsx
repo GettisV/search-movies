@@ -13,15 +13,17 @@ export const Navbar = memo(() => {
     const [stateModal, setStateModal] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
-    const [trigger, { data, isLoading }] = useLazyGetSearchQuery();
+    const [trigger, {
+        data, isFetching, isSuccess, reset,
+    }] = useLazyGetSearchQuery();
     const [filmSearchInput, setFilmSearchInput] = useState<string>('');
     const LIMIT = 10;
 
     const closeModalHandler = useCallback(() => {
-        // dispatch(filmApi.util.resetApiState());
         setStateModal(false);
+        reset();
         setFilmSearchInput('');
-    }, []);
+    }, [reset]);
 
     const showModalHandler = useCallback(() => {
         setStateModal(true);
@@ -74,15 +76,18 @@ export const Navbar = memo(() => {
             >
                 <SearchIcon className={cls.searchImg} />
             </button>
-
-            <FilmsSearchModalWindow
-                data={data}
-                isLoading={isLoading}
-                stateModal={stateModal}
-                closeModal={closeModalHandler}
-                filmSearchInput={filmSearchInput}
-                onChangeFilmSearchInput={onChangeFilmSearchInput}
-            />
+            {stateModal
+            && (
+                <FilmsSearchModalWindow
+                    data={data}
+                    isFetching={isFetching}
+                    isSuccess={isSuccess}
+                    stateModal={stateModal}
+                    closeModal={closeModalHandler}
+                    filmSearchInput={filmSearchInput}
+                    onChangeFilmSearchInput={onChangeFilmSearchInput}
+                />
+            )}
         </nav>
     );
 });
