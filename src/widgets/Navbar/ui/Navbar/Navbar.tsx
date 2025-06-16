@@ -6,7 +6,7 @@ import logo from 'shared/assets/logo.png';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
-import navbarItemsMenu from 'widgets/Navbar/lib/navbarItems';
+import getNavbarItemsMenu from '../../lib/getNavbarItemsMenu';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 import cls from './Navbar.module.scss';
 
@@ -47,6 +47,8 @@ export const Navbar = memo(() => {
         dispatch(filmApi.util.resetApiState());
     }, [dispatch]);
 
+    const navbarItemsMenu = getNavbarItemsMenu();
+
     return (
         <nav className={cls.navbar}>
             <div className={cls.applinks}>
@@ -63,7 +65,7 @@ export const Navbar = memo(() => {
                                 theme={AppLinkThemes.APP_LINK}
                                 hasActive
                             >
-                                { item.text}
+                                { item.text || ''}
                             </AppLink>
                         ),
                     )

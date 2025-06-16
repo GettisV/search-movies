@@ -9,8 +9,8 @@ import {
 export const filmApi = createApi({
     reducerPath: 'filmApi',
     baseQuery: fetchBaseQuery({
-        // baseUrl: '',
-        baseUrl: 'https://api.kinopoisk.dev/v1.4',
+        baseUrl: '',
+        // baseUrl: 'https://api.kinopoisk.dev/v1.4',
         prepareHeaders: (header) => {
             header.set('X-API-KEY', API_KEY);
         },

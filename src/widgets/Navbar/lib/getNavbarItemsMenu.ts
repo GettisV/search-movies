@@ -1,6 +1,6 @@
 import { RoutePath } from 'App/Providers/Router';
 
-const navbarItemsMenu = [
+const getNavbarItemsMenu = () => [
     {
         path: RoutePath.films,
         text: 'Фильмы',
@@ -15,4 +15,4 @@ const navbarItemsMenu = [
     },
 ];
 
-export default navbarItemsMenu;
+export default getNavbarItemsMenu;
