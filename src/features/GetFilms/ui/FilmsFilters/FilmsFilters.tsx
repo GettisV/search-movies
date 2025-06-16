@@ -2,7 +2,7 @@ import {
     filmCountriesFilterSelectOptions,
     filmGenreFilterSelectOptions, filmSortSelectOptions,
 } from 'entities/Films';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
     countriesOptions, genresOptions, releaseOptions, sortOptions,

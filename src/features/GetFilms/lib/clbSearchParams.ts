@@ -1,4 +1,3 @@
-import { URLSearchParamsInit } from 'react-router-dom';
 import { FIELDS_SEARCH_PARAMS } from '../consts/VALUES_FIELDS_SEARCH_PARAMS';
 
 type paramsType = {
@@ -9,15 +8,15 @@ type paramsType = {
 export const clbSearchParams = (
     prev: URLSearchParams | string,
     params: paramsType[],
-    clb?: () => URLSearchParamsInit,
-): URLSearchParamsInit => {
+    clb?: () => void,
+) => {
     const newParams = new URLSearchParams(prev);
-
-    clb?.();
 
     params.forEach((parametr) => {
         newParams.set(parametr.field, parametr.value);
     });
+
+    clb?.();
 
     return newParams;
 };

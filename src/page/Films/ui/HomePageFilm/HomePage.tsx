@@ -1,62 +1,43 @@
-import { RoutePath } from 'App/Providers/Router';
-import { FilmCard, filmGenreFilterSelectOptions, filmType } from 'entities/Films';
-import { filmResponseServerType, filmTypeResponseServer, useGetFilmsHomePageQuery } from 'features/GetFilms';
+import { filmGenreFilterSelectOptions } from 'entities/Films';
+import { filmHomeArg, useGetFilmsHomePageQuery } from 'features/GetFilms';
 import { memo } from 'react';
-import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
+import getCurrentYear from 'shared/lib/getCurrentYear';
 import { Page } from 'shared/ui/Page/Page';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import styles from './HomePage.module.scss';
 import './HomePageStyleSwiper.css';
+import Slides from './Slides/Slides';
 
 const HomePage = memo(() => {
-    // const { data: mainDataSlider } = useGetFilmsHomePageQuery({
-    //     filmType: filmType.FILMS,
-    // });
-
-    // const { data: detectiveDataSlider } = useGetFilmsHomePageQuery({
-    //     filmFilterGenre: filmGenreFilterSelectOptions.detective,
-    // });
-
-    // const { data: historyDataSlider } = useGetFilmsHomePageQuery({
-    //     filmFilterGenre: filmGenreFilterSelectOptions.history,
-    // });
-
-    // const { data: horrorDataSlider } = useGetFilmsHomePageQuery({
-    //     filmFilterGenre: filmGenreFilterSelectOptions.horror,
-    // });
-
-    interface IOptionsSlides{
-        hasPoster: boolean,
-        isCardOfMainSlider?: boolean,
-        isCardOfSlider?: boolean,
-    }
-
-    function Slides(cls:string, options: IOptionsSlides, data?:filmResponseServerType) {
-        return data?.docs?.map((filmInfo: filmTypeResponseServer) => (
-            <SwiperSlide key={filmInfo.id}>
-                <AppLink
-                    key={filmInfo.id}
-                    to={RoutePath.film_details + filmInfo.id}
-                    theme={AppLinkThemes.BOX_LINK}
-                >
-                    <FilmCard
-                        urlPoster={options.hasPoster ? filmInfo.poster : filmInfo.backdrop}
-                        filmInfo={filmInfo}
-                        className={cls}
-                        isCardOfMainSlider={options.isCardOfMainSlider}
-                        isCardOfSlider={options.isCardOfSlider}
-                    />
-                </AppLink>
-            </SwiperSlide>
-        ));
-    }
+    const additionalParams:filmHomeArg = {
+        limit: 10,
+        notNullFields: 'poster.url',
+        'rating.kp': '5.5-10',
+        'votes.kp': '10000-6666666',
+        year: getCurrentYear(),
+    };
+    const { data: mainDataSlider } = useGetFilmsHomePageQuery({
+        ...additionalParams,
+    });
+    const { data: detectiveDataSlider } = useGetFilmsHomePageQuery({
+        'genres.name': filmGenreFilterSelectOptions.detective,
+        ...additionalParams,
+    });
+    const { data: historyDataSlider } = useGetFilmsHomePageQuery({
+        'genres.name': filmGenreFilterSelectOptions.history,
+        ...additionalParams,
+    });
+    const { data: horrorDataSlider } = useGetFilmsHomePageQuery({
+        'genres.name': filmGenreFilterSelectOptions.horror,
+        ...additionalParams,
+    });
 
     return (
         <Page className={styles.page}>
-            {/* <Swiper
+            <Swiper
                 modules={[Navigation]}
                 spaceBetween={30}
                 slidesPerView={1}
@@ -95,8 +76,7 @@ const HomePage = memo(() => {
                 loop
             >
                 { Slides(styles.card || '', { isCardOfSlider: true, hasPoster: true }, horrorDataSlider) }
-            </Swiper> */}
-            <div>12</div>
+            </Swiper>
         </Page>
     );
 });

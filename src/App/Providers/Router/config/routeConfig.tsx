@@ -20,21 +20,20 @@ export const RoutePath: Record<AppRoutes, string> = {
 };
 
 export const childrenRouteConfig = [
-    // {
-    //     index: true,
-    //     element: <HomePage />,
-    // },
     {
         index: true,
-        // path: RoutePath.films,
+        element: <HomePage />,
+    },
+    {
         key: filmType.FILMS,
+        path: RoutePath.films,
         text: 'Фильмы',
         element: <Films filmType={filmType.FILMS} />,
         navbar: true,
     },
     {
-        path: RoutePath.series,
         key: filmType.SERIALS,
+        path: RoutePath.series,
         text: 'Сериалы',
         element: <Films filmType={filmType.SERIALS} />,
         navbar: true,

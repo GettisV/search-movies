@@ -19,7 +19,7 @@ export interface filmArg {
     'countries.name': filmCountriesFilterSelectOptions | string,
 }
 
-export type filmHomeArg = Partial<Pick<filmArg, 'genres.name' | 'type'>>
+export type filmHomeArg = Partial<filmArg>
 
 export interface filmSearchArg {
     searchText: string,

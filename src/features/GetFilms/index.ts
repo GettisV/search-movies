@@ -1,10 +1,12 @@
 export { clbSearchParams } from './lib/clbSearchParams';
 
 export {
-    filmApi, useGetFilmQuery, useGetFilmsHomePageQuery, useLazyGetSearchQuery,
+    filmApi, useGetFilmQuery, useLazyGetSearchQuery, useGetFilmsHomePageQuery,
 } from './api/filmApi/filmApi';
 
-export { filmArg, filmFiltersSchema, filmSearchArg } from './model/types/filmsTypes';
+export {
+    filmArg, filmFiltersSchema, filmSearchArg, filmHomeArg,
+} from './model/types/filmsTypes';
 
 export { useFilmQueryFromURL } from './model/hooks/useFilmQueryFromURL/useFilmQueryFromURL';
 
