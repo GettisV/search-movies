@@ -25,29 +25,19 @@ export const childrenRouteConfig = [
         element: <HomePage />,
     },
     {
-        key: filmType.FILMS,
         path: RoutePath.films,
-        text: 'Фильмы',
         element: <Films filmType={filmType.FILMS} />,
-        navbar: true,
     },
     {
-        key: filmType.SERIALS,
         path: RoutePath.series,
-        text: 'Сериалы',
         element: <Films filmType={filmType.SERIALS} />,
-        navbar: true,
     },
     {
-        key: filmType.CARTOONS,
         path: RoutePath.cartoons,
-        text: 'Мультфильмы',
         element: <Films filmType={filmType.CARTOONS} />,
-        navbar: true,
     },
     {
         path: `${RoutePath.film_details}:id`,
-        text: '',
         element: <FilmDetailsPage />,
     },
 ];

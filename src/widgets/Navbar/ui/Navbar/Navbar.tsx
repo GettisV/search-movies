@@ -1,13 +1,14 @@
-import { childrenRouteConfig, RoutePath } from 'App/Providers/Router';
+import { RoutePath } from 'App/Providers/Router';
 import { filmApi, useLazyGetSearchQuery } from 'features/GetFilms/api/filmApi/filmApi';
 import { memo, useCallback, useState } from 'react';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import logo from 'shared/assets/logo.png';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
-import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
 import { useDebounce } from 'shared/hooks/useDebounce/useDebounce';
-import cls from './Navbar.module.scss';
+import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
+import navbarItemsMenu from 'widgets/Navbar/lib/navbarItems';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
+import cls from './Navbar.module.scss';
 
 export const Navbar = memo(() => {
     const [stateModal, setStateModal] = useState<boolean>(false);
@@ -53,16 +54,16 @@ export const Navbar = memo(() => {
                     <img className={cls.logo} src={logo} alt="logo" />
                 </AppLink>
                 {
-                    childrenRouteConfig.map(
-                        (route) => route.navbar && (
+                    navbarItemsMenu.map(
+                        (item) => (
                             <AppLink
-                                to={route.path || ''}
-                                key={route.path || `key${Math.random() * 1e6}`}
+                                to={item.path || ''}
+                                key={item.path || `key${Math.random() * 1e6}`}
                                 onClick={onClickHandler}
                                 theme={AppLinkThemes.APP_LINK}
                                 hasActive
                             >
-                                { route.text}
+                                { item.text}
                             </AppLink>
                         ),
                     )
