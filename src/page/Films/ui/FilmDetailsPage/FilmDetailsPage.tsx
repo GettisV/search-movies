@@ -1,10 +1,9 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { classNames } from 'shared/lib/classNames';
 import { useParams } from 'react-router-dom';
 import { FilmInfo } from 'entities/FilmDetails';
 import LoaderPage from 'shared/ui/LoaderPage/LoaderPage';
 import { useGetFilmsDetailsQuery } from 'features/GetFilms';
-import cls from './FilmDetailsPage.module.scss';
 
 interface FilmDetailsPageType{
     className?: string;

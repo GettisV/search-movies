@@ -2,6 +2,7 @@ import { ReducersMapObject, configureStore } from '@reduxjs/toolkit';
 import { filmReducer, filmSearchReducer } from 'entities/Films';
 import { filmsFiltersReducer, filmApi, filmSearchApi } from 'features/GetFilms';
 import { StateShema } from './StateSchema';
+import { errorMiddleware } from './errorMiddleware';
 
 const rootReducer: ReducersMapObject<StateShema> = {
     films: filmReducer,
@@ -13,11 +14,11 @@ const rootReducer: ReducersMapObject<StateShema> = {
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware:
-        (getDefaultMiddleware) => getDefaultMiddleware().concat(
-            filmApi.middleware,
-            filmSearchApi.middleware,
-        ),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
+        filmApi.middleware,
+        filmSearchApi.middleware,
+        errorMiddleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>
