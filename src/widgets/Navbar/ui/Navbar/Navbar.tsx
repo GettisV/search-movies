@@ -14,6 +14,7 @@ import SearchIcon from 'shared/assets/icons/search.svg';
 import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
 import logo from 'shared/assets/logo.png';
+import profile from 'shared/assets/icons/user.png';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 import cls from './Navbar.module.scss';
 
@@ -67,14 +68,23 @@ export const Navbar = memo(() => {
                     )
                 }
             </div>
-            <button
-                type="button"
-                aria-label="search"
-                className={cls.searchButton}
-                onClick={showModalHandler}
-            >
-                <SearchIcon className={cls.searchImg} />
-            </button>
+            <div>
+                <button
+                    type="button"
+                    aria-label="search"
+                    className={cls.searchButton}
+                    onClick={showModalHandler}
+                >
+                    <SearchIcon className={cls.searchImg} />
+                </button>
+                <button
+                    type="button"
+                    aria-label="profile"
+                    className={cls.profileButton}
+                >
+                    <img alt="profile" src={profile} />
+                </button>
+            </div>
 
             <FilmsSearchModalWindow
                 stateModal={stateModal}

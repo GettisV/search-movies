@@ -15,7 +15,7 @@
 
 $search-button: 45px;
 
-.search-button{
+.search-button, .profile-button{
     width: $search-button;
     height: $search-button;
     cursor: pointer;
@@ -23,6 +23,7 @@ $search-button: 45px;
     background-color: transparent;
     outline: none;
     border: none;
+    margin: 0 13px;
 }
 
 .search-img{
