@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "login": "89",
+      "email": "89",
+      "password": "89",
+      "id": 1
+    },
+    {
+      "login": "456",
+      "email": "456",
+      "password": "6567",
+      "id": 2
+    },
+    {
+      "login": "456",
+      "email": "456",
+      "password": "6567",
+      "id": 3
+    },
+    {
+      "login": "vadim",
+      "email": "vadim@ya.ru",
+      "password": "1",
+      "id": 4
+    },
+    {
+      "login": "123",
+      "email": "123",
+      "password": "123",
+      "id": 5
+    },
+    {
+      "login": "2",
+      "email": "2@ya.ru",
+      "password": "2",
+      "id": 6
+    }
+  ]
+}

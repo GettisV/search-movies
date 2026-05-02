@@ -1,19 +1,21 @@
-import { memo } from 'react';
+import { Register } from 'features/Register';
+import {
+    memo,
+} from 'react';
 import { classNames } from 'shared/lib/classNames';
-import cls from './<FTName|pascalcase>.module.scss';
 
-interface <FTName|pascalcase>Type{
+interface RegisterPageType{
     className?: string;
 }
 
-export const <FTName|pascalcase> = memo((props: <FTName|pascalcase>Type) => {
+export const RegisterPage = memo((props: RegisterPageType) => {
     const {
         className,
     } = props;
 
     return (
         <div className={classNames('', {}, [className])}>
-            1
+            <Register />
         </div>
     );
 });

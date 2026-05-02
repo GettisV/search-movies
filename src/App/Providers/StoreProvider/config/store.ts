@@ -1,6 +1,7 @@
 import { ReducersMapObject, configureStore } from '@reduxjs/toolkit';
 import { filmReducer, filmSearchReducer } from 'entities/Films';
 import { filmsFiltersReducer, filmApi, filmSearchApi } from 'features/GetFilms';
+import { DB_API } from 'shared/api/db-api/db-api';
 import { StateShema } from './StateSchema';
 import { errorMiddleware } from './errorMiddleware';
 
@@ -10,6 +11,7 @@ const rootReducer: ReducersMapObject<StateShema> = {
     filmsFilters: filmsFiltersReducer,
     [filmApi.reducerPath]: filmApi.reducer,
     [filmSearchApi.reducerPath]: filmSearchApi.reducer,
+    [DB_API.reducerPath]: DB_API.reducer,
 };
 
 export const store = configureStore({
@@ -17,6 +19,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
         filmApi.middleware,
         filmSearchApi.middleware,
+        DB_API.middleware,
         errorMiddleware,
     ),
 });

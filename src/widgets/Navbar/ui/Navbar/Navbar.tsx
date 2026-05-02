@@ -15,11 +15,13 @@ import { useAppDispatch } from 'shared/hooks/storeHooks/storeHooks';
 import { AppLink, AppLinkThemes } from 'shared/ui/AppLink/AppLink';
 import logo from 'shared/assets/logo.png';
 import profile from 'shared/assets/icons/user.png';
+import { useNavigate } from 'react-router-dom';
 import { FilmsSearchModalWindow } from '../FilmsSearchModalWindow/FilmsSearchModalWindow';
 import cls from './Navbar.module.scss';
 
 export const Navbar = memo(() => {
     const [stateModal, setStateModal] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
 
@@ -32,6 +34,12 @@ export const Navbar = memo(() => {
     const showModalHandler = useCallback(() => {
         setStateModal(true);
     }, []);
+
+    const showSignInPage = useCallback(() => {
+        const isAuth = localStorage.getItem('isAuth');
+        if (isAuth !== 'true') navigate('/signin');
+        if (isAuth === 'true') navigate('/profile');
+    }, [navigate]);
 
     const searchInputChange = useCallback((value: string) => {
         dispatch(filmsFiltersActions.searchFilm(value));
@@ -81,6 +89,7 @@ export const Navbar = memo(() => {
                     type="button"
                     aria-label="profile"
                     className={cls.profileButton}
+                    onClick={showSignInPage}
                 >
                     <img alt="profile" src={profile} />
                 </button>

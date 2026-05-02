@@ -1,19 +1,19 @@
 import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames';
-import cls from './<FTName|pascalcase>.module.scss';
+import Auth from 'features/Auth/ui/Auth';
 
-interface <FTName|pascalcase>Type{
+interface SignInPageType{
     className?: string;
 }
 
-export const <FTName|pascalcase> = memo((props: <FTName|pascalcase>Type) => {
+export const SignInPage = memo((props: SignInPageType) => {
     const {
         className,
     } = props;
 
     return (
         <div className={classNames('', {}, [className])}>
-            1
+            <Auth />
         </div>
     );
 });
